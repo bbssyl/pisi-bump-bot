@@ -7,6 +7,7 @@ from pisi_bump_bot.build_state import BuildEntry, EntryStatus
 from pisi_bump_bot.index_consistency import IndexConsistency
 from pisi_bump_bot.prepare_runner import PrepareSettings, run_prepare
 from pisi_bump_bot.report_model import PackageReport, Report, Status
+from pisi_bump_bot.text_files import read_text_preserving_newlines
 
 FIXTURES = Path(__file__).parent / "fixtures" / "pspec"
 FAKE_SHA1 = "0123456789abcdef0123456789abcdef01234567"
@@ -40,7 +41,7 @@ class PrepareRunnerTest(unittest.TestCase):
         for directory, fixture in ((ATARI, "atari800.xml"), (BRAVE, "brave.xml")):
             target = base / "contrib" / directory
             target.mkdir(parents=True)
-            (target / "pspec.xml").write_text((FIXTURES / fixture).read_text(encoding="utf-8", newline=""), encoding="utf-8", newline="")
+            (target / "pspec.xml").write_text(read_text_preserving_newlines(FIXTURES / fixture), encoding="utf-8", newline="")
         self.settings = PrepareSettings(base / "contrib", base / "hazir", "2026-10-07")
         self.report = make_report(
             outdated("brave-browser", BRAVE, "v1.94.1", "brave/brave-browser"),

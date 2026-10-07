@@ -13,6 +13,7 @@ from pisi_bump_bot.pspec_updater import PreparedUpdate, PspecUpdateError, Update
 from pisi_bump_bot.recipes_reader import read_recipe
 from pisi_bump_bot.report_model import PackageReport, Report, Status
 from pisi_bump_bot.spec_parser import PackageRecipe
+from pisi_bump_bot.text_files import read_text_preserving_newlines
 from pisi_bump_bot.version_compare import extract_version_text
 
 DEFAULT_LIMIT = 10
@@ -49,7 +50,7 @@ def derive_new_version(package: PackageReport, current_version: str) -> str:
 
 def read_text_exact(path: Path) -> str:
     try:
-        return path.read_text(encoding="utf-8", newline="")
+        return read_text_preserving_newlines(path)
     except (OSError, UnicodeDecodeError) as error:
         raise PrepareFailure(f"{path.name} okunamadı") from error
 

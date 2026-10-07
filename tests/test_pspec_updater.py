@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ElementTree
 from pathlib import Path
 
 from pisi_bump_bot.pspec_updater import PspecUpdateError, UpdateRequest, prepare_update
+from pisi_bump_bot.text_files import read_text_preserving_newlines
 
 FIXTURES = Path(__file__).parent / "fixtures" / "pspec"
 FAKE_SHA1 = "0123456789abcdef0123456789abcdef01234567"
@@ -10,7 +11,7 @@ RUN_DATE = "2026-10-07"
 
 
 def read_fixture(name: str) -> str:
-    return (FIXTURES / name).read_text(encoding="utf-8", newline="")
+    return read_text_preserving_newlines(FIXTURES / name)
 
 
 def build_request(pspec_text: str, **overrides: object) -> UpdateRequest:
