@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE PISI SYSTEM "http://www.pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>atari800</Name>
+        <Homepage>https://github.com/atari800/</Homepage>
+        <Packager>
+            <Name>PisiLinux Community</Name>
+            <Email>admins@pisilinux.org</Email>
+        </Packager>
+        <License>GPLv2</License>
+        <Icon>atari800</Icon>
+        <IsA>app:gui</IsA>
+        <Summary>Atari800 simulation</Summary>
+        <Description>An emulator of the Atari 800/800XL/130XE/5200 with various extensions</Description>
+        <Archive sha1sum="ece58ea116d7f6bc833f4fbfecdef38dd267bb84"  type="targz">https://github.com/atari800/atari800/releases/download/ATARI800_7_2_1/atari800-7.2.1-src.tgz</Archive>
+        <BuildDependencies>
+            <Dependency>libsdl2-devel</Dependency>
+            <Dependency>libsdl-devel</Dependency>
+            <Dependency>libpng-devel</Dependency>
+        </BuildDependencies>
+        <Patches>
+        </Patches>
+    </Source>
+
+    <Package>
+        <Name>atari800</Name>
+        <RuntimeDependencies>
+            <Dependency>libsdl2</Dependency>
+            <Dependency>libsdl2-32bit</Dependency>            
+            <Dependency>libsdl</Dependency>
+            <Dependency>libsdl-32bit</Dependency>
+            <Dependency>libpng</Dependency>
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="executable">/usr/bin</Path>
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/atari800</Path>
+            <Path fileType="data">/usr/share/doc</Path>
+            <Path fileType="doc">/usr/share/man/man1</Path>
+            <Path fileType="data">/usr/share/pixmaps</Path>
+            <Path fileType="data">/etc</Path>
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/applications/atari800.desktop">atari800.desktop</AdditionalFile>                      
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/atari800/ATARI5300.ROM">ATARI5200.ROM</AdditionalFile>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/atari800/ATARIXL.ROM">ATARIXL.ROM</AdditionalFile>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/atari800/ATARIBAS.ROM">ATARIBAS.ROM</AdditionalFile>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/atari800/ATARIOSA.ROM">ATARIOSA.ROM</AdditionalFile>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/atari800/ATARIOSB.ROM">ATARIOSB.ROM</AdditionalFile>    
+        </AdditionalFiles>
+    </Package>
+
+    <History>
+        <Update release="2">
+            <Date>2026-10-07</Date>
+            <Version>7.2.1</Version>
+                <Comment>Version bump to 7.2.1</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="1">
+            <Date>2024-11-20</Date>
+            <Version>5.2.0</Version>
+                <Comment>First Release</Comment>
+            <Name>Ali Cengiz Kurt</Name>
+            <Email>alicengizkurt@gmail.com</Email>
+        </Update>       
+    </History>
+</PISI>
+ 

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>VSCodium</Name>
+        <Homepage>https://vscodium.com/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <License>MIT</License>
+        <PartOf>Development</PartOf>
+        <IsA>app:gui</IsA>
+        <Summary xml:lang="en">Free/Libre Open Source Software Binaries of VS Code</Summary>
+        <Summary xml:lang="tr">VS Code'un Özgür Açık Kaynaklı Sürümü</Summary>
+        <Description xml:lang="en">VSCodium is a community-driven, freely-licensed binary distribution of Microsoft’s editor VS Code.</Description>
+        <Description xml:lang="tr">VSCodium, Microsoft'un VS Code düzenleyicisinin topluluk tarafından yönetilen, özgür lisanslı bir ikili dağıtımıdır.</Description>
+        <Icon>vscodium</Icon>
+        <Archive sha1sum="7926b597cec82e0632d236a79d739f0a0bd64a06" type="targz">
+           https://github.com/VSCodium/vscodium/releases/download/1.135.06055/VSCodium-linux-x64-1.135.06055.tar.gz            
+        </Archive>
+        <!-- https://github.com/VSCodium/vscodium/releases/ -->
+    </Source>
+    <Package>
+        <Name>VSCodium</Name>
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>
+            <Path fileType="data">/usr/share</Path>
+            <Path fileType="icon">/usr/share/pixmaps</Path>
+            <Path fileType="icon">/usr/share/icons</Path>
+        </Files>        
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/vscodium.desktop">vscodium.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/pixmaps/vscodium.png">vscodium.png</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/vscodium.png">vscodium.png</AdditionalFile>
+        </AdditionalFiles>        
+    </Package>
+    <History>  
+    
+        <Update release="4">
+            <Date>2026-10-07</Date>
+            <Version>1.135.06055</Version>
+            <Comment>Version bump to 1.135.06055</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="3">
+            <Date>2026-04-05</Date>
+            <Version>1.112.01907</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="2">
+            <Date>2026-02-08</Date>
+            <Version>1.108.20787</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="1">
+            <Date>2026-01-13</Date>
+            <Version>1.107.18627</Version>
+            <Comment>Initial Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

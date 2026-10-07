@@ -1,0 +1,25 @@
+--- a/game/strategy/Dune2000/pspec.xml
++++ b/game/strategy/Dune2000/pspec.xml
+@@ -12,7 +12,7 @@
+         <Description>Open Source real-time strategy game engine for early Westwood games such as Command-Conquer: Red Alert written in C# using SDL and OpenGL. Runs on Windows, Linux, *BSD and Mac OS X.</Description>
+         <License>gpl2</License>
+         <PartOf>Game</PartOf>
+-        <Archive sha1sum="e0de2441e61780476fec90bade8388131abd7e46" type="binary">https://github.com/OpenRA/OpenRA/releases/download/release-20210321/OpenRA-Dune-2000-x86_64.AppImage</Archive>        
++        <Archive sha1sum="ec2d5cc23572fc0e6f07668393e335a6038aa74d" type="binary">https://github.com/OpenRA/OpenRA/releases/download/release-20250330/OpenRA-Dune-2000-x86_64.AppImage</Archive>        
+     </Source>
+ 
+     <Package>
+@@ -42,6 +42,13 @@
+     </Package>
+     
+     <History>       
++        <Update release="2">
++            <Date>2026-10-07</Date>
++            <Version>20250330</Version>
++            <Comment>Version bump to 20250330</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="1">
+             <Date>2021-11-15</Date>
+             <Version>20210321</Version>

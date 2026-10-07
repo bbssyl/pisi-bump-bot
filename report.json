@@ -462,7 +462,7 @@
       "latest_version": "ATARI800_7_2_1",
       "upstream": "atari800/atari800",
       "release_url": "https://github.com/atari800/atari800/releases/tag/ATARI800_7_2_1",
-      "candidate_url": "https://github.com/atari800/atari800/releases/download/ATARI800_7_2_1/atari800-5.2.0-src.tgz",
+      "candidate_url": "https://github.com/atari800/atari800/releases/download/ATARI800_7_2_1/atari800-7.2.1-src.tgz",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "game/emulator/atari800/pspec.xml"
@@ -858,7 +858,7 @@
       "latest_version": "CD-625",
       "upstream": "fritzing/fritzing-app",
       "release_url": "https://github.com/fritzing/fritzing-app/releases/tag/CD-625",
-      "candidate_url": "https://github.com/fritzing/fritzing-app/releases/download/CD-625/fritzing-a1ffcea08814801903b1a9515b18cf97067968ae-master-625.xenial.linux.AMD64.tar.bz2",
+      "candidate_url": "https://github.com/fritzing/fritzing-app/releases/download/CD-625/fritzing-a1ffcea08814801903b1a9515b18cf97067968ae-master-498.xenial.linux.AMD64.tar.bz2",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "science/electronics/fritzing/pspec.xml"

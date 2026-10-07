@@ -1,0 +1,25 @@
+--- a/gnofract4d/pspec.xml
++++ b/gnofract4d/pspec.xml
+@@ -12,7 +12,7 @@
+         <IsA>app:gui</IsA>
+         <Summary>Gnofract 4D is a free, open source program which allows anyone to create beautiful images called fractals.</Summary>
+         <Description>The images are automatically created by the computer based on mathematical principles. These include the Mandelbrot and Julia sets and many more.</Description>
+-        <Archive sha1sum="4b96723e87b76243c15646da5624841db0a85bc7" type="targz">https://github.com/edyoung/gnofract4d/archive/V_3_14_1.tar.gz</Archive>
++        <Archive sha1sum="6d8cd24e57c2c35a080c716558bd6a6b21606247" type="targz">https://github.com/edyoung/gnofract4d/archive/v4.4.tar.gz</Archive>
+         <BuildDependencies>
+             <Dependency>gtk2-devel</Dependency>
+             <Dependency>python-devel</Dependency>
+@@ -42,6 +42,13 @@
+     </Package>
+ 
+     <History>
++        <Update release="2">
++            <Date>2026-10-07</Date>
++            <Version>4.4</Version>
++            <Comment>Version bump to 4.4</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="1">
+             <Date>2016-04-01</Date>
+             <Version>3.14.1</Version>
