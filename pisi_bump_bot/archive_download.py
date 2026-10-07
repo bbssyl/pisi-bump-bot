@@ -1,9 +1,9 @@
 import hashlib
+import http.client
 import urllib.error
 import urllib.request
-from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Protocol
 
 from pisi_bump_bot.errors import BotError
 
@@ -12,7 +12,11 @@ DEFAULT_MAX_BYTES = 2 * 1024 * 1024 * 1024
 DOWNLOAD_TIMEOUT_SECONDS = 60
 CHUNK_BYTES = 1024 * 1024
 
-Opener = Callable[[urllib.request.Request, float], Any]
+NETWORK_ERRORS = (urllib.error.URLError, http.client.HTTPException, OSError)
+
+
+class Opener(Protocol):
+    def __call__(self, url: urllib.request.Request, data: bytes | None = None, *, timeout: float) -> Any: ...
 
 
 class ArchiveDownloadError(BotError):
@@ -46,18 +50,22 @@ def hash_stream(response: Any, max_bytes: int) -> tuple[str, int]:
     return digest.hexdigest(), size
 
 
+def network_failure_reason(error: BaseException) -> str:
+    if isinstance(error, urllib.error.HTTPError):
+        return f"indirme başarısız (HTTP {error.code})"
+    if isinstance(error, TimeoutError) or isinstance(getattr(error, "reason", None), TimeoutError):
+        return "indirme zaman aşımına uğradı"
+    return f"indirme başarısız ({type(error).__name__}: {error})"
+
+
 def download_sha1(
     url: str, opener: Opener = urllib.request.urlopen, max_bytes: int = DEFAULT_MAX_BYTES
 ) -> DownloadResult:
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
-        with opener(request, DOWNLOAD_TIMEOUT_SECONDS) as response:
+        with opener(request, timeout=DOWNLOAD_TIMEOUT_SECONDS) as response:
             reject_oversize(declared_length(response), max_bytes)
             sha1, size = hash_stream(response, max_bytes)
-    except urllib.error.HTTPError as error:
-        raise ArchiveDownloadError(f"indirme başarısız (HTTP {error.code})") from error
-    except TimeoutError as error:
-        raise ArchiveDownloadError("indirme zaman aşımına uğradı") from error
-    except (urllib.error.URLError, OSError) as error:
-        raise ArchiveDownloadError(f"indirme başarısız ({error})") from error
+    except NETWORK_ERRORS as error:
+        raise ArchiveDownloadError(network_failure_reason(error)) from error
     return DownloadResult(url, sha1, size)

@@ -1,4 +1,5 @@
 import hashlib
+import http.client
 import urllib.error
 import urllib.request
 from collections.abc import Callable, Mapping
@@ -9,6 +10,7 @@ from pisi_bump_bot.errors import FetchError
 USER_AGENT = "pisi-bump-bot"
 REQUEST_TIMEOUT_SECONDS = 60
 HASH_CHUNK_BYTES = 1024 * 1024
+NETWORK_ERRORS = (urllib.error.URLError, http.client.HTTPException, OSError)
 
 
 @dataclass(frozen=True)
@@ -32,9 +34,16 @@ def urllib_fetch(url: str, headers: Mapping[str, str]) -> HttpResponse:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
             return HttpResponse(response.status, lowercase_headers(response.headers), response.read())
     except urllib.error.HTTPError as error:
-        return HttpResponse(error.code, lowercase_headers(error.headers), error.read())
-    except (urllib.error.URLError, OSError) as error:
-        raise FetchError(f"{url}: {error}") from error
+        return read_error_response(url, error)
+    except NETWORK_ERRORS as error:
+        raise FetchError(f"{url}: {type(error).__name__}: {error}") from error
+
+
+def read_error_response(url: str, error: urllib.error.HTTPError) -> HttpResponse:
+    try:
+        return HttpResponse(error.code, lowercase_headers(error.headers or {}), error.read())
+    except NETWORK_ERRORS as read_error:
+        raise FetchError(f"{url}: HTTP {error.code} yanıtı okunamadı") from read_error
 
 
 def stream_sha1(url: str) -> str:
@@ -44,6 +53,6 @@ def stream_sha1(url: str) -> str:
         with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
             for chunk in iter(lambda: response.read(HASH_CHUNK_BYTES), b""):
                 digest.update(chunk)
-    except (urllib.error.URLError, OSError) as error:
-        raise FetchError(f"{url}: {error}") from error
+    except NETWORK_ERRORS as error:
+        raise FetchError(f"{url}: {type(error).__name__}: {error}") from error
     return digest.hexdigest()

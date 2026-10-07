@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 from pisi_bump_bot.errors import FetchError, RateLimitExceeded, UpstreamError
 from pisi_bump_bot.http_client import USER_AGENT, Fetch, HttpResponse
-from pisi_bump_bot.version_compare import extract_version_text
 
 API_ROOT = "https://api.github.com"
 ARCHIVE_EXTENSION = r"(?:tar\.gz|tgz|zip|tar\.bz2|tar\.xz)"
@@ -16,7 +15,6 @@ ARCHIVE_PATTERNS = (
     re.compile(rf"^https?://codeload\.github\.com/{OWNER_REPO}/(?:tar\.gz|zip)/(?:refs/tags/)?(?P<tag>[^/]+)$"),
     re.compile(rf"^https?://codeload\.github\.com/{OWNER_REPO}/(?:legacy\.)?(?:tar\.gz|zip)/(?:refs/tags/)?(?P<tag>[^/]+)$"),
 )
-MINIMUM_REPLACEABLE_VERSION_LENGTH = 3
 
 
 @dataclass(frozen=True)
@@ -38,17 +36,6 @@ def parse_github_archive(url: str) -> GithubArchive | None:
         if match:
             return GithubArchive(match["owner"], match["repo"], match["tag"])
     return None
-
-
-def build_candidate_url(url: str, old_tag: str, new_tag: str) -> str | None:
-    if old_tag not in url:
-        return None
-    candidate = url.replace(old_tag, new_tag)
-    old_text = extract_version_text(old_tag)
-    new_text = extract_version_text(new_tag)
-    if old_text and new_text and len(old_text) >= MINIMUM_REPLACEABLE_VERSION_LENGTH:
-        candidate = candidate.replace(old_text, new_text)
-    return candidate
 
 
 def is_rate_limited(response: HttpResponse) -> bool:

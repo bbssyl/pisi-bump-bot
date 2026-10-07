@@ -6,7 +6,7 @@ from pathlib import Path
 
 from pisi_bump_bot.archive_download import ArchiveDownloadError, DownloadResult
 from pisi_bump_bot.build_state import BuildEntry, EntryStatus, State, package_dir
-from pisi_bump_bot.candidate_url import build_candidate_url
+from pisi_bump_bot.candidate_url import build_candidate_url, derive_new_version
 from pisi_bump_bot.errors import BotError
 from pisi_bump_bot.github_upstream import parse_github_archive
 from pisi_bump_bot.pspec_updater import PreparedUpdate, PspecUpdateError, UpdateRequest, prepare_update
@@ -14,7 +14,6 @@ from pisi_bump_bot.recipes_reader import read_recipe
 from pisi_bump_bot.report_model import PackageReport, Report, Status
 from pisi_bump_bot.spec_parser import PackageRecipe
 from pisi_bump_bot.text_files import read_text_preserving_newlines
-from pisi_bump_bot.version_compare import extract_version_text
 
 DEFAULT_LIMIT = 10
 SAFE_DIRECTORY = re.compile(r"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$")
@@ -40,12 +39,12 @@ class PrepareOutcome:
     build_list: tuple[str, ...]
 
 
-def derive_new_version(package: PackageReport, current_version: str) -> str:
+def new_version_for(package: PackageReport, current_version: str) -> str:
     prefixes = (package.upstream.split("/")[-1] if package.upstream else "", package.name)
-    text = extract_version_text(package.latest_version or "", prefixes)
-    if text is None:
+    version = derive_new_version(package.latest_version or "", prefixes, current_version)
+    if version is None:
         raise PrepareFailure("yeni sürüm etiketten okunamadı")
-    return re.sub(r"[_-]", ".", text) if "." in current_version else text
+    return version
 
 
 def read_text_exact(path: Path) -> str:
@@ -87,7 +86,7 @@ def prepare_package(
 ) -> PreparedUpdate:
     directory = package_dir(package.recipe_path)
     recipe = load_recipe(settings, package)
-    new_version = derive_new_version(package, recipe.current_version)
+    new_version = new_version_for(package, recipe.current_version)
     candidate = resolve_candidate(package, recipe, new_version)
     result = download_archive(download, candidate)
     source = settings.recipes_dir / directory

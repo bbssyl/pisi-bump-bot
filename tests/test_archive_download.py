@@ -1,10 +1,15 @@
 import hashlib
+import http.client
 import io
+import socket
+import ssl
 import unittest
 import urllib.error
 import urllib.request
 
-from pisi_bump_bot.archive_download import ArchiveDownloadError, download_sha1
+from pisi_bump_bot.archive_download import DOWNLOAD_TIMEOUT_SECONDS, ArchiveDownloadError, download_sha1
+
+DEFAULT_TIMEOUT = getattr(socket, "_GLOBAL_DEFAULT_TIMEOUT", object())
 
 
 class FakeResponse:
@@ -27,18 +32,27 @@ class FakeResponse:
         return None
 
 
-def opener_returning(response: FakeResponse):
-    def opener(request: urllib.request.Request, timeout: float) -> FakeResponse:
-        return response
+class UrlopenLike:
+    def __init__(self, response: FakeResponse | None = None, error: BaseException | None = None) -> None:
+        self.response = response
+        self.error = error
+        self.calls: list[tuple[object, object, object]] = []
 
-    return opener
+    def __call__(self, url: object, data: object = None, timeout: object = DEFAULT_TIMEOUT) -> FakeResponse:
+        self.calls.append((url, data, timeout))
+        if data is not None:
+            raise TypeError("message_body should be a bytes-like object or an iterable")
+        if self.error is not None:
+            raise self.error
+        return self.response
 
 
-def opener_raising(error: BaseException):
-    def opener(request: urllib.request.Request, timeout: float) -> FakeResponse:
-        raise error
+def opener_returning(response: FakeResponse) -> UrlopenLike:
+    return UrlopenLike(response=response)
 
-    return opener
+
+def opener_raising(error: BaseException) -> UrlopenLike:
+    return UrlopenLike(error=error)
 
 
 class DownloadSha1Test(unittest.TestCase):
@@ -84,6 +98,55 @@ class DownloadSha1Test(unittest.TestCase):
 
         with self.assertRaisesRegex(ArchiveDownloadError, "indirme başarısız"):
             download_sha1("https://example.org/a.zip", opener_raising(error))
+
+    def test_should_pass_timeout_as_keyword_and_no_body_when_calling_urlopen(self) -> None:
+        opener = opener_returning(FakeResponse(b"abc"))
+
+        download_sha1("https://example.org/a.zip", opener)
+
+        request, data, timeout = opener.calls[0]
+        self.assertEqual((request.full_url, data, timeout), ("https://example.org/a.zip", None, DOWNLOAD_TIMEOUT_SECONDS))
+
+    def test_should_send_get_request_with_user_agent(self) -> None:
+        opener = opener_returning(FakeResponse(b"abc"))
+
+        download_sha1("https://example.org/a.zip", opener)
+
+        request = opener.calls[0][0]
+        self.assertEqual((request.get_method(), request.get_header("User-agent")), ("GET", "pisi-bump-bot"))
+
+    def test_should_convert_every_network_failure_to_download_error(self) -> None:
+        failures = (
+            urllib.error.URLError(TimeoutError("timed out")),
+            socket.timeout("timed out"),
+            ConnectionResetError("reset"),
+            ConnectionRefusedError("refused"),
+            OSError("network down"),
+            http.client.IncompleteRead(b"partial", 10),
+            http.client.RemoteDisconnected("closed"),
+            http.client.BadStatusLine("garbage"),
+            http.client.InvalidURL("bad url"),
+            ssl.SSLError("handshake failed"),
+        )
+        for failure in failures:
+            with self.subTest(failure=type(failure).__name__):
+                with self.assertRaisesRegex(ArchiveDownloadError, "indirme"):
+                    download_sha1("https://example.org/a.zip", opener_raising(failure))
+
+    def test_should_convert_failure_raised_while_reading_body(self) -> None:
+        response = FakeResponse(b"")
+        response.read = lambda size: (_ for _ in ()).throw(http.client.IncompleteRead(b"", 5))
+
+        with self.assertRaisesRegex(ArchiveDownloadError, "IncompleteRead"):
+            download_sha1("https://example.org/a.zip", opener_returning(response))
+
+    def test_should_report_timeout_when_url_error_wraps_timeout(self) -> None:
+        with self.assertRaisesRegex(ArchiveDownloadError, "zaman aşımı"):
+            download_sha1("https://example.org/a.zip", opener_raising(urllib.error.URLError(TimeoutError())))
+
+    def test_should_let_programming_errors_surface(self) -> None:
+        with self.assertRaises(TypeError):
+            download_sha1("https://example.org/a.zip", opener_raising(TypeError("bug")))
 
     def test_should_accept_payload_equal_to_limit(self) -> None:
         result = download_sha1("https://example.org/a.zip", opener_returning(FakeResponse(b"q" * 10)), max_bytes=10)

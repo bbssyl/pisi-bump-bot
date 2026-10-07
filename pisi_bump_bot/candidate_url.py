@@ -1,5 +1,7 @@
 import re
 
+from pisi_bump_bot.version_compare import extract_version_text
+
 SEPARATORS = ("_", "-")
 NOT_AFTER_TOKEN = r"(?!\d|\.\d)"
 NOT_BEFORE_TOKEN = r"(?<![A-Za-z0-9])"
@@ -28,3 +30,10 @@ def build_candidate_url(
     retagged = replace_token(archive_url, old_tag, new_tag)
     directory, separator, file_name = retagged.rpartition("/")
     return f"{directory}{separator}{replace_version(file_name, old_version, new_version)}"
+
+
+def derive_new_version(new_tag: str, prefixes: tuple[str, ...], current_version: str) -> str | None:
+    text = extract_version_text(new_tag, prefixes)
+    if text is None:
+        return None
+    return re.sub(r"[_-]", ".", text) if "." in current_version else text

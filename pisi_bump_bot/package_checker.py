@@ -1,11 +1,6 @@
+from pisi_bump_bot.candidate_url import build_candidate_url, derive_new_version
 from pisi_bump_bot.errors import FetchError, RateLimitExceeded, UpstreamError
-from pisi_bump_bot.github_upstream import (
-    GithubArchive,
-    GithubLookup,
-    LatestRelease,
-    build_candidate_url,
-    parse_github_archive,
-)
+from pisi_bump_bot.github_upstream import GithubArchive, GithubLookup, LatestRelease, parse_github_archive
 from pisi_bump_bot.http_client import HashArchive
 from pisi_bump_bot.spec_parser import PackageRecipe
 from pisi_bump_bot.report_model import PackageReport, Status
@@ -62,7 +57,7 @@ class PackageChecker:
         return self._outdated(recipe, archive, fields)
 
     def _outdated(self, recipe: PackageRecipe, archive: GithubArchive, fields: dict[str, str]) -> PackageReport:
-        candidate = build_candidate_url(recipe.archive_urls[0], archive.tag, fields["latest_version"])
+        candidate = candidate_for(recipe, archive, fields["latest_version"])
         sha1, detail = self._hash(candidate)
         return PackageReport(
             status=Status.OUTDATED, candidate_url=candidate, candidate_sha1=sha1, detail=detail, **fields
@@ -75,3 +70,12 @@ class PackageChecker:
             return self._hash_archive(candidate), None
         except FetchError as error:
             return None, f"sha1 hesaplanamadı: {error}"
+
+
+def candidate_for(recipe: PackageRecipe, archive: GithubArchive, new_tag: str) -> str | None:
+    new_version = derive_new_version(new_tag, (archive.repo, recipe.name), recipe.current_version)
+    if new_version is None:
+        return None
+    archive_url = recipe.archive_urls[0]
+    candidate = build_candidate_url(archive_url, archive.tag, new_tag, recipe.current_version, new_version)
+    return None if candidate == archive_url else candidate

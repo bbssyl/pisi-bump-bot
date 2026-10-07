@@ -1,7 +1,7 @@
 import unittest
 
 from pisi_bump_bot.errors import RateLimitExceeded, UpstreamError
-from pisi_bump_bot.github_upstream import GithubArchive, GithubLookup, build_candidate_url, parse_github_archive
+from pisi_bump_bot.github_upstream import GithubArchive, GithubLookup, parse_github_archive
 from tests.support import empty_response, json_response, routed_fetch
 
 API = "https://api.github.com/repos/o/r"
@@ -35,16 +35,6 @@ class ParseGithubArchiveTest(unittest.TestCase):
 
     def test_should_return_none_when_url_is_raw_file(self) -> None:
         self.assertIsNone(parse_github_archive("https://github.com/groni/Sources/raw/master/x-1.0.tar.gz"))
-
-
-class BuildCandidateUrlTest(unittest.TestCase):
-    def test_should_replace_tag_and_version_in_filename(self) -> None:
-        url = "https://github.com/a/b/releases/download/v1.57.0/atom-1.57.0.tar.gz"
-        expected = "https://github.com/a/b/releases/download/v1.58.0/atom-1.58.0.tar.gz"
-        self.assertEqual(build_candidate_url(url, "v1.57.0", "v1.58.0"), expected)
-
-    def test_should_return_none_when_old_tag_not_in_url(self) -> None:
-        self.assertIsNone(build_candidate_url("https://github.com/a/b/x.tar.gz", "v1", "v2"))
 
 
 class GithubLookupTest(unittest.TestCase):

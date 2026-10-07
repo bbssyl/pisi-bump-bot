@@ -27,6 +27,21 @@ class PackageCheckerTest(unittest.TestCase):
             (Status.OUTDATED, "https://github.com/o/r/archive/refs/tags/v1.1.tar.gz"),
         )
 
+    def test_should_build_same_candidate_as_prepare_when_tag_uses_underscores(self) -> None:
+        url = "https://github.com/o/r/releases/download/ATARI800_5_2_0/atari800-5.2.0-src.tgz"
+
+        report = checker("ATARI800_5_2_1").check(PackageRecipe("atari800", "5.2.0", 1, (url,), "a/pspec.xml"))
+
+        expected = "https://github.com/o/r/releases/download/ATARI800_5_2_1/atari800-5.2.1-src.tgz"
+        self.assertEqual(report.candidate_url, expected)
+
+    def test_should_replace_only_tag_when_file_name_has_no_matching_version(self) -> None:
+        url = "https://github.com/o/r/releases/download/CD-498/app-master-498.tar.bz2"
+
+        report = checker("CD-499").check(PackageRecipe("app", "0.9.4", 1, (url,), "a/pspec.xml"))
+
+        self.assertEqual(report.candidate_url, "https://github.com/o/r/releases/download/CD-499/app-master-498.tar.bz2")
+
     def test_should_report_current_when_versions_match_after_normalization(self) -> None:
         self.assertEqual(checker("v1.0").check(recipe()).status, Status.CURRENT)
 
