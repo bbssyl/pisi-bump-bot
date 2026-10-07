@@ -1,4 +1,4 @@
-from pisi_bump_bot.candidate_url import build_candidate_url, derive_new_version
+from pisi_bump_bot.candidate_choice import choose_candidate
 from pisi_bump_bot.errors import FetchError, RateLimitExceeded, UpstreamError
 from pisi_bump_bot.github_upstream import GithubArchive, GithubLookup, LatestRelease, parse_github_archive
 from pisi_bump_bot.http_client import HashArchive
@@ -54,13 +54,16 @@ class PackageChecker:
             return PackageReport(status=Status.UNCOMPARABLE, **fields)
         if compare_versions(newest, current) <= 0:
             return PackageReport(status=Status.CURRENT, **fields)
-        return self._outdated(recipe, archive, fields)
+        return self._outdated(recipe, archive, fields, latest)
 
-    def _outdated(self, recipe: PackageRecipe, archive: GithubArchive, fields: dict[str, str]) -> PackageReport:
-        candidate = candidate_for(recipe, archive, fields["latest_version"])
-        sha1, detail = self._hash(candidate)
+    def _outdated(
+        self, recipe: PackageRecipe, archive: GithubArchive, fields: dict[str, str], latest: LatestRelease
+    ) -> PackageReport:
+        choice = choose_candidate(recipe, archive, latest)
+        sha1, hash_detail = self._hash(choice.url)
         return PackageReport(
-            status=Status.OUTDATED, candidate_url=candidate, candidate_sha1=sha1, detail=detail, **fields
+            status=Status.OUTDATED, candidate_url=choice.url, candidate_sha1=sha1,
+            detail=choice.reason or hash_detail, **fields,
         )
 
     def _hash(self, candidate: str | None) -> tuple[str | None, str | None]:
@@ -71,11 +74,3 @@ class PackageChecker:
         except FetchError as error:
             return None, f"sha1 hesaplanamadı: {error}"
 
-
-def candidate_for(recipe: PackageRecipe, archive: GithubArchive, new_tag: str) -> str | None:
-    new_version = derive_new_version(new_tag, (archive.repo, recipe.name), recipe.current_version)
-    if new_version is None:
-        return None
-    archive_url = recipe.archive_urls[0]
-    candidate = build_candidate_url(archive_url, archive.tag, new_tag, recipe.current_version, new_version)
-    return None if candidate == archive_url else candidate

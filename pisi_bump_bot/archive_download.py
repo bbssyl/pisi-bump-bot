@@ -20,7 +20,9 @@ class Opener(Protocol):
 
 
 class ArchiveDownloadError(BotError):
-    pass
+    def __init__(self, message: str, transient: bool = False) -> None:
+        super().__init__(message)
+        self.transient = transient
 
 
 @dataclass(frozen=True)
@@ -50,6 +52,19 @@ def hash_stream(response: Any, max_bytes: int) -> tuple[str, int]:
     return digest.hexdigest(), size
 
 
+def is_transient_failure(error: BaseException) -> bool:
+    if not isinstance(error, urllib.error.HTTPError):
+        return True
+    return error.code >= 500 or error.code == 429 or is_rate_limit_forbidden(error)
+
+
+def is_rate_limit_forbidden(error: urllib.error.HTTPError) -> bool:
+    headers = error.headers
+    if error.code != 403 or headers is None:
+        return False
+    return headers.get("X-RateLimit-Remaining") == "0" or headers.get("Retry-After") is not None
+
+
 def network_failure_reason(error: BaseException) -> str:
     if isinstance(error, urllib.error.HTTPError):
         return f"indirme başarısız (HTTP {error.code})"
@@ -67,5 +82,5 @@ def download_sha1(
             reject_oversize(declared_length(response), max_bytes)
             sha1, size = hash_stream(response, max_bytes)
     except NETWORK_ERRORS as error:
-        raise ArchiveDownloadError(network_failure_reason(error)) from error
+        raise ArchiveDownloadError(network_failure_reason(error), is_transient_failure(error)) from error
     return DownloadResult(url, sha1, size)

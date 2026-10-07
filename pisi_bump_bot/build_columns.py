@@ -1,11 +1,13 @@
 from dataclasses import dataclass, field
 
-from pisi_bump_bot.build_state import BuildEntry, EntryStatus, State, package_dir
+from pisi_bump_bot.build_state import MAX_ATTEMPTS, BuildEntry, EntryStatus, State, package_dir
 
 PENDING_TEXT = "bekliyor"
 NOT_PREPARED_PREFIX = "otomatik hazırlanamadı"
 FILE_BRANCH = "HEAD"
-MARKS = {EntryStatus.BUILT: "✅", EntryStatus.BUILD_FAILED: "❌"}
+TRANSIENT_PREFIX = "geçici hata, tekrar denenecek"
+MARKS = {EntryStatus.BUILT: "✅", EntryStatus.BUILD_FAILED: "❌", EntryStatus.TRANSIENT_FAILED: "⏳"}
+NO_DIFF_STATUSES = (EntryStatus.PREPARE_FAILED, EntryStatus.TRANSIENT_FAILED)
 
 
 @dataclass(frozen=True)
@@ -31,7 +33,7 @@ class BuildLinks:
 
     def prepared_cell(self, recipe_path: str, version: str | None) -> str | None:
         entry = self.entry_for(recipe_path, version)
-        if entry is None or entry.status is EntryStatus.PREPARE_FAILED:
+        if entry is None or entry.status in NO_DIFF_STATUSES:
             return None
         return f"[pspec.diff]({self.diff_url(recipe_path)})"
 
@@ -41,6 +43,8 @@ class BuildLinks:
             return None
         if entry.status is EntryStatus.PREPARE_FAILED:
             return f"{NOT_PREPARED_PREFIX}: {entry.reason}"
+        if entry.status is EntryStatus.TRANSIENT_FAILED:
+            return f"{TRANSIENT_PREFIX} ({entry.attempts}/{MAX_ATTEMPTS}): {entry.reason}"
         if entry.status is EntryStatus.PREPARED:
             return PENDING_TEXT
         return result_cell(entry, self.run_url(entry))

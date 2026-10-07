@@ -32,6 +32,12 @@ Workflow üç işten oluşur: `report` (rapor + hazırlık), `build` (matrix, en
 
 Hazırlanan pspec, `pisilinux/chroot` kapsayıcısında derlenir. Derleme günlüğü ve `.pisi` dosyaları (1 GB üstü hariç) 14 gün saklanan artifact olarak yüklenir. Derlenen paketler yalnızca denemedir. Durum `state/builds.json` içinde tutulur; aynı yol + sürüm bir daha derlenmez. Paket artık `eski` değilse `hazir/` ve durum kaydı silinir.
 
+### Dosya seçimi ve yeniden deneme
+
+`/releases/download/` biçimindeki arşiv URL'leri tahmin edilmez; yeni release'in dosya listesinden seçilir. Yardımcı dosyalar (`.zsync`, `.sha256`, `.txt`, `.yml` vb.) elenir, eski dosyayla aynı tür ve mimari aranır, Windows/macOS dosyaları reddedilir; kalanlar sürüm yer tutucusu konarak ad benzerliğine göre sıralanır. Benzerlik 0,6'nın altındaysa veya ilk iki aday arasındaki fark 0,05'ten azsa seçim yapılmaz ve `uygun dosya bulunamadı (adaylar: ...)` yazılır. `/archive/` URL'leri ve yalnızca tag bulunan depolar eski değiştirme mantığıyla çözülür.
+
+Hatalar kalıcı veya geçici sayılır. Kalıcı: uygun dosya yok, HTTP 404/410, boyut sınırı, aday URL üretilemedi, pspec güncelleme hatası, gerçek derleme hatası. Geçici: zaman aşımı, bağlantı/SSL hatası, HTTP 5xx, 429 ve rate limit 403, durum dosyası üretmeyen derleme işi. Aynı (paket, sürüm) için en fazla 3 deneme yapılır; üçüncü geçici hata kalıcı olur. Kuyruk önceliği: yeni iş, sonucu beklenen derlemeler, geçici hata ve mantık değişikliği tekrarları. `state/builds.json` kayıtlarındaki `logic_version` (şu an 2) eksik veya eskiyse kalıcı hazırlık hatası bir kez yeniden denenir.
+
 ## Elle çalıştırma
 
 GitHub'da depoda Actions sekmesine gidin, "Güncellik raporu" workflow'unu seçin ve Run workflow düğmesine basın.

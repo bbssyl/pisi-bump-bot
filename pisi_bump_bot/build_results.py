@@ -4,9 +4,15 @@ from pathlib import Path
 
 from pisi_bump_bot.build_columns import MARKS
 from pisi_bump_bot.build_state import BuildEntry, EntryStatus, State
+from pisi_bump_bot.failure_policy import transient_outcome
 
 RESULT_PATTERN = "result-*.json"
-RESULT_STATUSES = {"basarili": EntryStatus.BUILT, "basarisiz": EntryStatus.BUILD_FAILED}
+RESULT_STATUSES = {
+    "basarili": EntryStatus.BUILT,
+    "basarisiz": EntryStatus.BUILD_FAILED,
+    "durum_yok": EntryStatus.TRANSIENT_FAILED,
+}
+NO_STATUS_REASON = "derleme durumu üretilmedi (iptal, zaman aşımı, imaj çekme veya klonlama hatası)"
 
 
 @dataclass(frozen=True)
@@ -42,6 +48,9 @@ def load_results(directory: Path) -> list[BuildResult]:
 
 
 def apply_result(entry: BuildEntry, result: BuildResult, run_date: str) -> BuildEntry:
+    if result.status is EntryStatus.TRANSIENT_FAILED:
+        status, reason = transient_outcome(NO_STATUS_REASON, entry.attempts)
+        return replace(entry, status=status, date=run_date, reason=reason, run_id=result.run_id, artifact_name=None)
     return replace(
         entry, status=result.status, date=run_date, reason=None,
         run_id=result.run_id, artifact_name=result.artifact_name,

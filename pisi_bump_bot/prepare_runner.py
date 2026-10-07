@@ -1,14 +1,16 @@
 import re
 import shutil
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from pisi_bump_bot.archive_download import ArchiveDownloadError, DownloadResult
 from pisi_bump_bot.build_state import BuildEntry, EntryStatus, State, package_dir
 from pisi_bump_bot.candidate_url import build_candidate_url, derive_new_version
 from pisi_bump_bot.errors import BotError
+from pisi_bump_bot.failure_policy import BUILD_LOST_REASON, failure_outcome, next_attempts, transient_outcome
 from pisi_bump_bot.github_upstream import parse_github_archive
+from pisi_bump_bot.prepare_queue import QueueItem, QueueKind, build_queue, is_exhausted_pending
 from pisi_bump_bot.pspec_updater import PreparedUpdate, PspecUpdateError, UpdateRequest, prepare_update
 from pisi_bump_bot.recipes_reader import read_recipe
 from pisi_bump_bot.report_model import PackageReport, Report, Status
@@ -22,7 +24,9 @@ Downloader = Callable[[str], DownloadResult]
 
 
 class PrepareFailure(BotError):
-    pass
+    def __init__(self, message: str, transient: bool = False) -> None:
+        super().__init__(message)
+        self.transient = transient
 
 
 @dataclass(frozen=True)
@@ -37,6 +41,7 @@ class PrepareSettings:
 class PrepareOutcome:
     state: State
     build_list: tuple[str, ...]
+    queue: tuple[QueueItem, ...] = ()
 
 
 def new_version_for(package: PackageReport, current_version: str) -> str:
@@ -62,6 +67,10 @@ def load_recipe(settings: PrepareSettings, package: PackageReport) -> PackageRec
 
 
 def resolve_candidate(package: PackageReport, recipe: PackageRecipe, new_version: str) -> str:
+    if package.candidate_url:
+        return package.candidate_url
+    if package.detail:
+        raise PrepareFailure(package.detail)
     archive_url = recipe.archive_urls[0]
     archive = parse_github_archive(archive_url)
     if archive is None or package.latest_version is None:
@@ -78,7 +87,7 @@ def download_archive(download: Downloader, url: str) -> DownloadResult:
     try:
         return download(url)
     except ArchiveDownloadError as error:
-        raise PrepareFailure(str(error)) from error
+        raise PrepareFailure(str(error), error.transient) from error
 
 
 def prepare_package(
@@ -137,37 +146,44 @@ def candidates(report: Report) -> list[PackageReport]:
     return sorted(eligible, key=lambda p: p.recipe_path)
 
 
-def attempt(package: PackageReport, settings: PrepareSettings, download: Downloader) -> BuildEntry:
+def attempt(package: PackageReport, settings: PrepareSettings, download: Downloader, previous: BuildEntry | None) -> BuildEntry:
     directory = package_dir(package.recipe_path)
     version = package.latest_version or ""
+    attempts = next_attempts(previous, version)
     try:
         prepared = prepare_package(package, settings, download)
     except PrepareFailure as error:
         remove_prepared(settings.output_dir, directory)
-        return BuildEntry(version, EntryStatus.PREPARE_FAILED, settings.run_date, reason=str(error))
+        status, reason = failure_outcome(str(error), error.transient, attempts)
+        return BuildEntry(version, status, settings.run_date, reason=reason, attempts=attempts)
     write_prepared(settings.output_dir, directory, prepared.new_pspec_text, prepared.unified_diff)
-    return BuildEntry(version, EntryStatus.PREPARED, settings.run_date)
+    return BuildEntry(version, EntryStatus.PREPARED, settings.run_date, attempts=attempts)
 
 
-def is_pending_build(entry: BuildEntry, settings: PrepareSettings, directory: str) -> bool:
-    return entry.status is EntryStatus.PREPARED and (settings.output_dir / directory / "pspec.xml").is_file()
+def expire_lost_builds(state: State, settings: PrepareSettings) -> State:
+    expired = {}
+    for directory, entry in state.items():
+        if is_exhausted_pending(entry, settings.output_dir, directory):
+            status, reason = transient_outcome(BUILD_LOST_REASON, entry.attempts)
+            entry = replace(entry, status=status, reason=reason, date=settings.run_date)
+        expired[directory] = entry
+    return expired
+
+
+def process(item: QueueItem, current: State, settings: PrepareSettings, download: Downloader) -> BuildEntry:
+    directory = package_dir(item.package.recipe_path)
+    entry = current.get(directory)
+    if item.kind is QueueKind.PENDING_BUILD and entry is not None:
+        return replace(entry, attempts=entry.attempts + 1, date=settings.run_date)
+    return attempt(item.package, settings, download, entry)
 
 
 def run_prepare(report: Report, state: State, settings: PrepareSettings, download: Downloader) -> PrepareOutcome:
-    current = prune(report, state, settings.output_dir)
+    current = expire_lost_builds(prune(report, state, settings.output_dir), settings)
+    queue = build_queue(candidates(report), current, settings.output_dir, settings.limit)
     build_list: list[str] = []
-    attempted = 0
-    for package in candidates(report):
-        if attempted >= settings.limit:
-            break
-        directory = package_dir(package.recipe_path)
-        entry = current.get(directory)
-        if entry is not None and entry.version == package.latest_version:
-            pending = is_pending_build(entry, settings, directory)
-            attempted += pending
-            build_list += [directory] if pending else []
-            continue
-        attempted += 1
-        current[directory] = attempt(package, settings, download)
+    for item in queue:
+        directory = package_dir(item.package.recipe_path)
+        current[directory] = process(item, current, settings, download)
         build_list += [directory] if current[directory].status is EntryStatus.PREPARED else []
-    return PrepareOutcome(current, tuple(build_list))
+    return PrepareOutcome(current, tuple(build_list), tuple(queue))

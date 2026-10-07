@@ -1,0 +1,84 @@
+{
+  "packages": {
+    "development/VSCodium": {
+      "version": "1.135.06055",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-development-VSCodium"
+    },
+    "editor/obsidian": {
+      "version": "v1.14.4",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-editor-obsidian"
+    },
+    "game/emulator/atari800": {
+      "version": "ATARI800_7_2_1",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-game-emulator-atari800"
+    },
+    "game/strategy/Dune2000": {
+      "version": "release-20250330",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-game-strategy-Dune2000"
+    },
+    "game/strategy/RedAlert": {
+      "version": "release-20250330",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-game-strategy-RedAlert"
+    },
+    "gnofract4d": {
+      "version": "v4.4",
+      "status": "basarisiz",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37625455360",
+      "artifact_name": "derleme-gnofract4d"
+    },
+    "multimedia/graphics/freecad": {
+      "version": "1.1.4",
+      "status": "hazirlanamadi",
+      "date": "2026-10-07",
+      "reason": "indirme başarısız (HTTP 404)",
+      "run_id": null,
+      "artifact_name": null
+    },
+    "multimedia/graphics/pencil2d": {
+      "version": "v0.7.2",
+      "status": "hazirlanamadi",
+      "date": "2026-10-07",
+      "reason": "indirme başarısız (HTTP 404)",
+      "run_id": null,
+      "artifact_name": null
+    },
+    "multimedia/graphics/synfig": {
+      "version": "v1.5.5",
+      "status": "hazirlanamadi",
+      "date": "2026-10-07",
+      "reason": "indirme başarısız (HTTP 404)",
+      "run_id": null,
+      "artifact_name": null
+    },
+    "multimedia/tv/iptvnator": {
+      "version": "v0.24.0",
+      "status": "hazirlanamadi",
+      "date": "2026-10-07",
+      "reason": "indirme başarısız (HTTP 404)",
+      "run_id": null,
+      "artifact_name": null
+    }
+  }
+}

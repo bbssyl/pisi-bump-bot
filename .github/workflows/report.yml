@@ -116,13 +116,16 @@ jobs:
           name: ${{ env.REPORT_ARTIFACT }}
           path: ${{ runner.temp }}/rapor
 
+      - name: Sürümü durumdan oku
+        run: |
+          echo "VERSION=$(jq -r --arg path "$RECIPE" '.packages[$path].version // empty' "$RUNNER_TEMP/rapor/state/builds.json")" >> "$GITHUB_ENV"
+
       - name: Contrib deposunu klonla ve hazır pspec'i uygula
         run: |
           git clone --depth 1 "$CONTRIB_URL" "$RUNNER_TEMP/contrib"
           test -f "$RUNNER_TEMP/contrib/$RECIPE/pspec.xml"
           test -f "$RUNNER_TEMP/rapor/hazir/$RECIPE/pspec.xml"
           cp "$RUNNER_TEMP/rapor/hazir/$RECIPE/pspec.xml" "$RUNNER_TEMP/contrib/$RECIPE/pspec.xml"
-          echo "VERSION=$(jq -r --arg path "$RECIPE" '.packages[$path].version // empty' "$RUNNER_TEMP/rapor/state/builds.json")" >> "$GITHUB_ENV"
           mkdir -p "$RUNNER_TEMP/out"
 
       - name: Docker imajını çek
@@ -161,8 +164,13 @@ jobs:
         if: always()
         run: |
           out="$RUNNER_TEMP/out"
-          code=$(cat "$out/status.txt" 2>/dev/null || echo 1)
-          if [ "$code" = "0" ]; then result=basarili; else result=basarisiz; fi
+          if [ ! -f "$out/status.txt" ]; then
+            code=yok
+            result=durum_yok
+          else
+            code=$(cat "$out/status.txt")
+            if [ "$code" = "0" ]; then result=basarili; else result=basarisiz; fi
+          fi
           pisi_files=$(find "$out" -maxdepth 1 -name '*.pisi' -printf '%f\n' 2>/dev/null | sort | jq -R . | jq -s .)
           mkdir -p "$RUNNER_TEMP/result"
           jq -n \

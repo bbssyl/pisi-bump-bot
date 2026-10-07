@@ -6,9 +6,15 @@ from pathlib import Path
 from pisi_bump_bot.errors import BotError
 
 
+PREPARE_LOGIC_VERSION = 2
+LEGACY_LOGIC_VERSION = 1
+MAX_ATTEMPTS = 3
+
+
 class EntryStatus(StrEnum):
     PREPARED = "hazir"
     PREPARE_FAILED = "hazirlanamadi"
+    TRANSIENT_FAILED = "gecici_hata"
     BUILT = "basarili"
     BUILD_FAILED = "basarisiz"
 
@@ -21,6 +27,8 @@ class BuildEntry:
     reason: str | None = None
     run_id: str | None = None
     artifact_name: str | None = None
+    attempts: int = 0
+    logic_version: int = PREPARE_LOGIC_VERSION
 
 
 State = dict[str, BuildEntry]
@@ -38,6 +46,8 @@ def entry_from_document(document: dict) -> BuildEntry:
         reason=document.get("reason"),
         run_id=document.get("run_id"),
         artifact_name=document.get("artifact_name"),
+        attempts=int(document.get("attempts", 0)),
+        logic_version=int(document.get("logic_version", LEGACY_LOGIC_VERSION)),
     )
 
 

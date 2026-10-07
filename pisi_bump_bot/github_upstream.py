@@ -28,6 +28,18 @@ class GithubArchive:
 class LatestRelease:
     tag: str
     release_url: str
+    assets: tuple[str, ...] | None = None
+
+
+def is_release_download(url: str) -> bool:
+    return ARCHIVE_PATTERNS[0].match(url) is not None
+
+
+def asset_names(payload: dict) -> tuple[str, ...] | None:
+    assets = payload.get("assets")
+    if not isinstance(assets, list):
+        return None
+    return tuple(item["name"] for item in assets if isinstance(item, dict) and isinstance(item.get("name"), str))
 
 
 def parse_github_archive(url: str) -> GithubArchive | None:
@@ -97,7 +109,7 @@ class GithubLookup:
         payload = parse_json(response)
         if not isinstance(payload, dict) or payload.get("draft") or payload.get("prerelease"):
             return self._latest_tag(owner, repo)
-        return self._release_from_tag(owner, repo, payload.get("tag_name"))
+        return self._release_from_tag(owner, repo, payload.get("tag_name"), asset_names(payload))
 
     def _latest_tag(self, owner: str, repo: str) -> LatestRelease:
         response = self._get(f"/repos/{owner}/{repo}/tags?per_page=1")
@@ -111,7 +123,9 @@ class GithubLookup:
         return self._release_from_tag(owner, repo, payload[0].get("name"))
 
     @staticmethod
-    def _release_from_tag(owner: str, repo: str, tag: object) -> LatestRelease:
+    def _release_from_tag(
+        owner: str, repo: str, tag: object, assets: tuple[str, ...] | None = None
+    ) -> LatestRelease:
         if not isinstance(tag, str) or not tag:
             raise UpstreamError("tag adı okunamadı")
-        return LatestRelease(tag, f"https://github.com/{owner}/{repo}/releases/tag/{tag}")
+        return LatestRelease(tag, f"https://github.com/{owner}/{repo}/releases/tag/{tag}", assets)
