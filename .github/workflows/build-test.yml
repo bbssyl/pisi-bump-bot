@@ -1,0 +1,149 @@
+name: Deneme derlemesi
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_path:
+        description: "Contrib içindeki paket yolu"
+        required: true
+        default: network/browser/brave
+        type: string
+      full_upgrade:
+        description: "Derlemeden önce tam sistem yükseltmesi yap"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PACKAGE_PATH: ${{ inputs.package_path }}
+      FULL_UPGRADE: ${{ inputs.full_upgrade }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Paket yolunu doğrula
+        run: |
+          if ! [[ "$PACKAGE_PATH" =~ ^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$ ]] || [[ "$PACKAGE_PATH" == *..* ]]; then
+            echo "Geçersiz paket yolu: $PACKAGE_PATH"
+            exit 1
+          fi
+          echo "ARTIFACT_SUFFIX=$(echo "$PACKAGE_PATH" | tr '/' '-')" >> "$GITHUB_ENV"
+
+      - name: Disk durumu (önce)
+        run: df -h
+
+      - name: Contrib deposunu klonla
+        run: |
+          git clone --depth 1 https://git.pisilinux.org/Pisilinux/contrib.git "$RUNNER_TEMP/contrib"
+          echo "SOURCE_COMMIT=$(git -C "$RUNNER_TEMP/contrib" rev-parse --short HEAD)" >> "$GITHUB_ENV"
+          test -f "$RUNNER_TEMP/contrib/$PACKAGE_PATH/pspec.xml"
+
+      - name: Çıktı klasörünü hazırla
+        run: mkdir -p "$RUNNER_TEMP/out"
+
+      - name: Docker imajını çek
+        run: |
+          docker pull pisilinux/chroot
+          digest=$(docker image inspect pisilinux/chroot --format '{{index .RepoDigests 0}}')
+          created=$(docker image inspect pisilinux/chroot --format '{{.Created}}')
+          echo "İmaj özeti: $digest"
+          echo "İmaj oluşturulma tarihi: $created"
+          echo "IMAGE_DIGEST=$digest" >> "$GITHUB_ENV"
+          echo "IMAGE_CREATED=$created" >> "$GITHUB_ENV"
+
+      - name: Paketi derle
+        id: build
+        continue-on-error: true
+        run: |
+          start_time=$(date +%s)
+          set +e
+          docker run --rm --security-opt seccomp=unconfined \
+            -v "$RUNNER_TEMP/contrib:/git" \
+            -v "$RUNNER_TEMP/out:/out" \
+            -v "$GITHUB_WORKSPACE/ci:/ci:ro" \
+            pisilinux/chroot bash /ci/pisi-build-in-container.sh "$PACKAGE_PATH" "$FULL_UPGRADE"
+          docker_status=$?
+          set -e
+          echo "DURATION_SECONDS=$(( $(date +%s) - start_time ))" >> "$GITHUB_ENV"
+          echo "DOCKER_STATUS=$docker_status" >> "$GITHUB_ENV"
+          exit "$docker_status"
+
+      - name: Disk durumu (sonra)
+        if: always()
+        run: df -h
+
+      - name: Çıktı sahipliğini düzelt
+        if: always()
+        run: sudo chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/out"
+
+      - name: Büyük paketleri ayır
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/oversized"
+          : > "$RUNNER_TEMP/oversized.txt"
+          find "$RUNNER_TEMP/out" -maxdepth 1 -name '*.pisi' -size +1G | while read -r file; do
+            echo "$(basename "$file") 1 GB sınırını aştığı için yüklenmedi" >> "$RUNNER_TEMP/oversized.txt"
+            mv "$file" "$RUNNER_TEMP/oversized/"
+          done
+          cat "$RUNNER_TEMP/oversized.txt"
+
+      - name: Adım özetine yaz
+        if: always()
+        run: |
+          out="$RUNNER_TEMP/out"
+          status=$(cat "$out/status.txt" 2>/dev/null || echo "${DOCKER_STATUS:-bilinmiyor}")
+          if [ "$status" = "0" ]; then mark="✅ Başarılı"; else mark="❌ Başarısız (çıkış kodu: $status)"; fi
+          {
+            echo "## Deneme derlemesi"
+            echo
+            echo "- Paket: \`$PACKAGE_PATH\`"
+            echo "- Contrib commit: \`${SOURCE_COMMIT:-bilinmiyor}\`"
+            echo "- İmaj özeti: \`${IMAGE_DIGEST:-bilinmiyor}\`"
+            echo "- İmaj tarihi: \`${IMAGE_CREATED:-bilinmiyor}\`"
+            echo "- Tam yükseltme: \`$FULL_UPGRADE\`"
+            echo "- Süre: ${DURATION_SECONDS:-bilinmiyor} sn"
+            echo "- Durum: $mark"
+            echo
+            echo "### Üretilen paketler (bayt, dosya)"
+            echo
+            echo '```'
+            cat "$out/packages.txt" 2>/dev/null || true
+            cat "$RUNNER_TEMP/oversized.txt" 2>/dev/null || true
+            echo '```'
+            echo
+            echo "<details><summary>build.log son 60 satır</summary>"
+            echo
+            echo '```'
+            tail -n 60 "$out/build.log" 2>/dev/null || echo "build.log yok"
+            echo '```'
+            echo
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Çıktıları yükle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deneme-derlemesi-${{ env.ARTIFACT_SUFFIX }}
+          path: |
+            ${{ runner.temp }}/out/build.log
+            ${{ runner.temp }}/out/status.txt
+            ${{ runner.temp }}/out/packages.txt
+            ${{ runner.temp }}/out/*.pisi
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Derleme sonucunu denetle
+        if: always()
+        run: |
+          status=$(cat "$RUNNER_TEMP/out/status.txt" 2>/dev/null || echo "1")
+          if [ "$status" != "0" ]; then
+            echo "Derleme başarısız oldu (çıkış kodu: $status)"
+            exit 1
+          fi
