@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>ferdium</Name>
+        <Homepage>https://ferdium.org/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary>A messaging browser that allows you to combine your favorite messaging services into one application </Summary>
+        <Description>A messaging browser that allows you to combine your favorite messaging services into one application</Description>
+        <License>Apache</License>
+        <PartOf>Network</PartOf>
+        <Archive sha1sum="0266a96a8ffb0a2dc7f3b9d2250d6ab6b6fa4f01" type="binary">
+            https://github.com/ferdium/ferdium-app/releases/download/v7.2.3/Ferdium-linux-7.2.3-amd64.deb
+        </Archive>        
+    </Source>
+    <!-- https://github.com/ferdium/ferdium-app/releases -->
+    <Package>
+        <Name>ferdium</Name>
+        <RuntimeDependencies>
+            <Dependency>nss</Dependency>
+            <Dependency>atk</Dependency>
+            <Dependency>at-spi2-atk</Dependency>
+            <Dependency>cups</Dependency>
+            <Dependency>libdrm</Dependency>
+            <Dependency>gdk-pixbuf</Dependency>
+            <Dependency>gtk3</Dependency>
+            <Dependency>alsa-lib</Dependency>
+            <Dependency>c-ares</Dependency>
+            <Dependency>ffmpeg</Dependency>
+            <Dependency>libevent</Dependency>
+            <Dependency>libxkbfile</Dependency>
+            <Dependency>libxslt</Dependency>
+            <Dependency>minizip</Dependency>
+            <Dependency>re2</Dependency>
+            <Dependency>snappy</Dependency>           
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="executable">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path> 
+            <path fileType="data">/usr/share/doc</path> 
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/icons</Path>         
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/ferdium.desktop">ferdium.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/ferdium.png">ferdium.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    
+    <History>
+        <Update release="7">
+            <Date>2026-10-07</Date>
+            <Version>7.2.3</Version>
+            <Comment>Version bump to 7.2.3</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="6">
+            <Date>2025-12-11</Date>
+            <Version>7.1.1</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="5">
+            <Date>2025-09-30</Date>
+            <Version>7.1.0</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="4">
+            <Date>2024-12-05</Date>
+            <Version>7.0.0</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="3">
+            <Date>2024-07-11</Date>
+            <Version>6.7.5</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="2">
+            <Date>2024-02-08</Date>
+            <Version>6.7.0</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="1">
+            <Date>2023-11-09</Date>
+            <Version>6.6.0</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

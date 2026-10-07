@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>onlyoffice</Name>
+        <Homepage>https://www.onlyoffice.com/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary xml:lang="en">An office suite that combines text, spreadsheet and presentation editors, providing the ability to create, view, and edit documents.</Summary>
+        <Summary xml:lang="tr">Metin, tablo ve sunum düzenleyicilerini bir araya getiren; belgeleri oluşturma, görüntüleme ve düzenleme imkanı sunan bir ofis paketi.</Summary>
+        <Description xml:lang="en">Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit documents.</Description>
+        <Description xml:lang="tr">Metin, tablo ve sunum düzenleyicilerini bir araya getiren; belgeleri oluşturma, görüntüleme ve düzenleme imkanı sunan bir ofis paketi.
+Alternatif kısa çeviri: Belgeleri oluşturma, görüntüleme ve düzenleme imkanı sunan; metin, tablo ve sunum editörlerini bir arada bulunduran ofis paketi.</Description>
+        <License>AGPL3</License>
+        <PartOf>Office</PartOf>
+        <Archive sha1sum="ac239aa3a4ce0147d1886d4747e20d003cf00077" type="tarxz">
+            https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v9.4.0/onlyoffice-desktopeditors-x64.tar.xz
+        </Archive> 
+        <!-- https://github.com/ONLYOFFICE/DesktopEditors/ -->
+    </Source>
+
+    <Package>
+        <Name>onlyoffice</Name>
+        <RuntimeDependencies>
+            <Dependency>curl</Dependency>
+            <Dependency>icon-theme-hicolor</Dependency>            
+            <Dependency>gtk3</Dependency>
+            <Dependency>alsa-lib</Dependency>
+            <Dependency>pulseaudio-libs</Dependency>
+            <Dependency>gstreamer</Dependency>
+            <Dependency>gst-plugins-base</Dependency>
+            <Dependency>gst-plugins-ugly</Dependency>
+            <Dependency>libXScrnSaver</Dependency>
+            <Dependency>nss</Dependency>
+            <Dependency>nspr</Dependency>
+            <Dependency>dejavu-fonts</Dependency>
+            <Dependency>liberation-fonts</Dependency>
+            <Dependency>desktop-file-utils</Dependency>                
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>  
+            <Path fileType="data">/usr/share</Path>         
+        </Files>
+       
+    </Package>
+    
+    <History>    
+        <Update release="4">
+            <Date>2026-10-07</Date>
+            <Version>9.4.0</Version>
+            <Comment>Version bump to 9.4.0</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="3">
+            <Date>2026-04-18</Date>
+            <Version>9.3.1</Version>
+            <Comment>Version Bump to 9.3.1</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="2">
+            <Date>2026-01-13</Date>
+            <Version>9.2.1</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="1">
+            <Date>2022-02-05</Date>
+            <Version>7.0.0</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

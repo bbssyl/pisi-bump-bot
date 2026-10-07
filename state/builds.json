@@ -6,7 +6,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-development-VSCodium"
+      "artifact_name": "derleme-development-VSCodium",
+      "attempts": 0,
+      "logic_version": 1
     },
     "editor/obsidian": {
       "version": "v1.14.4",
@@ -14,7 +16,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-editor-obsidian"
+      "artifact_name": "derleme-editor-obsidian",
+      "attempts": 0,
+      "logic_version": 1
     },
     "game/emulator/atari800": {
       "version": "ATARI800_7_2_1",
@@ -22,7 +26,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-game-emulator-atari800"
+      "artifact_name": "derleme-game-emulator-atari800",
+      "attempts": 0,
+      "logic_version": 1
     },
     "game/strategy/Dune2000": {
       "version": "release-20250330",
@@ -30,7 +36,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-game-strategy-Dune2000"
+      "artifact_name": "derleme-game-strategy-Dune2000",
+      "attempts": 0,
+      "logic_version": 1
     },
     "game/strategy/RedAlert": {
       "version": "release-20250330",
@@ -38,7 +46,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-game-strategy-RedAlert"
+      "artifact_name": "derleme-game-strategy-RedAlert",
+      "attempts": 0,
+      "logic_version": 1
     },
     "gnofract4d": {
       "version": "v4.4",
@@ -46,7 +56,9 @@
       "date": "2026-10-07",
       "reason": null,
       "run_id": "37625455360",
-      "artifact_name": "derleme-gnofract4d"
+      "artifact_name": "derleme-gnofract4d",
+      "attempts": 0,
+      "logic_version": 1
     },
     "multimedia/graphics/freecad": {
       "version": "1.1.4",
@@ -54,7 +66,9 @@
       "date": "2026-10-07",
       "reason": "indirme başarısız (HTTP 404)",
       "run_id": null,
-      "artifact_name": null
+      "artifact_name": null,
+      "attempts": 0,
+      "logic_version": 1
     },
     "multimedia/graphics/pencil2d": {
       "version": "v0.7.2",
@@ -62,7 +76,9 @@
       "date": "2026-10-07",
       "reason": "indirme başarısız (HTTP 404)",
       "run_id": null,
-      "artifact_name": null
+      "artifact_name": null,
+      "attempts": 0,
+      "logic_version": 1
     },
     "multimedia/graphics/synfig": {
       "version": "v1.5.5",
@@ -70,7 +86,9 @@
       "date": "2026-10-07",
       "reason": "indirme başarısız (HTTP 404)",
       "run_id": null,
-      "artifact_name": null
+      "artifact_name": null,
+      "attempts": 0,
+      "logic_version": 1
     },
     "multimedia/tv/iptvnator": {
       "version": "v0.24.0",
@@ -78,7 +96,109 @@
       "date": "2026-10-07",
       "reason": "indirme başarısız (HTTP 404)",
       "run_id": null,
-      "artifact_name": null
+      "artifact_name": null,
+      "attempts": 0,
+      "logic_version": 1
+    },
+    "network/browser/brave": {
+      "version": "v1.96.61",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-browser-brave",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/browser/brave-nightly": {
+      "version": "v1.96.61",
+      "status": "hazirlanamadi",
+      "date": "2026-10-07",
+      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.96.61-1.aarch64.rpm, brave-browser-1.96.61-1.x86_64.rpm, brave-browser-1.96.61-linux-amd64.zip, brave-browser-1.96.61-linux-arm64.zip, Brave-Browser-arm64.dmg)",
+      "run_id": null,
+      "artifact_name": null,
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/browser/zen-browser": {
+      "version": "1.23.1b",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-browser-zen-browser",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/chat/ferdium": {
+      "version": "v7.2.3",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-chat-ferdium",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/chat/mattermost": {
+      "version": "v6.3.0",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-chat-mattermost",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/mail/mailspring": {
+      "version": "1.26.0",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-mail-mailspring",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "network/misc/github-desktop": {
+      "version": "release-3.4.13-linux1",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-network-misc-github-desktop",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "office/koodo-reader": {
+      "version": "v2.4.6",
+      "status": "basarisiz",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-office-koodo-reader",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "office/onlyoffice": {
+      "version": "v9.4.0",
+      "status": "basarili",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-office-onlyoffice",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "pot-desktop": {
+      "version": "3.0.7",
+      "status": "basarisiz",
+      "date": "2026-10-07",
+      "reason": null,
+      "run_id": "37630041914",
+      "artifact_name": "derleme-pot-desktop",
+      "attempts": 1,
+      "logic_version": 2
     }
   }
 }

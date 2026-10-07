@@ -1,0 +1,27 @@
+--- a/network/browser/zen-browser/pspec.xml
++++ b/network/browser/zen-browser/pspec.xml
+@@ -15,8 +15,8 @@
+         <Description xml:lang="en">Zen Browser is a privacy-focused web browser based on Firefox with enhanced security features, improved performance, and a clean interface. Built for users who value privacy and want a distraction-free browsing experience without tracking.</Description>
+         <Description xml:lang="tr">Zen Browser, gelişmiş güvenlik özellikleri, iyileştirilmiş performans ve temiz arayüze sahip, Firefox tabanlı gizlilik odaklı bir web tarayıcısıdır. Takip olmadan dikkat dağıtıcı olmayan gezinme deneyimi isteyen kullanıcılar için tasarlanmıştır.</Description>
+        
+-        <Archive sha1sum="74d34bf5752185ed6cc5dbd374ae69ad8598eacf" type="binary">
+-           https://github.com/zen-browser/desktop/releases/download/1.21.10b/zen-x86_64.AppImage
++        <Archive sha1sum="930095041d2e1649860528c22e753ad84b46ca2a" type="binary">
++           https://github.com/zen-browser/desktop/releases/download/1.23.1b/zen-x86_64.AppImage
+         </Archive>
+     </Source>
+     <!-- https://github.com/zen-browser/desktop/releases -->
+@@ -45,6 +45,13 @@
+     </Package>
+ 
+     <History>
++        <Update release="12">
++            <Date>2026-10-07</Date>
++            <Version>1.23.1</Version>
++            <Comment>Version bump to 1.23.1</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="11">
+             <Date>2026-08-01</Date>
+             <Version>1.21.10b</Version>

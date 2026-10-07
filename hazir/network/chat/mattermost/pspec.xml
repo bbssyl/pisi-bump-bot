@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>Mattermost</Name>
+        <Homepage>https://mattermost.com/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary>Open source Slack-alternative in Golang and React</Summary>
+        <Description>Open source Slack-alternative in Golang and React</Description>
+        <License>AGPL, Apache</License>
+        <PartOf>Network</PartOf>
+        <Archive sha1sum="1ed6d20de7ae9e299cbe1250d89845d423f89468" type="targz">
+            https://github.com/mattermost/desktop/releases/download/v6.3.0/mattermost-desktop-6.3.0-linux-x64.tar.gz
+        </Archive>        
+    </Source>
+    <!-- https://github.com/mattermost/desktop/releases -->
+    <Package>
+        <Name>Mattermost</Name>
+        <RuntimeDependencies>
+            <Dependency>glibc</Dependency>            
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>  
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/icons</Path>         
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/mattermost.desktop">mattermost.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/Mattermost.png">Mattermost.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    
+    <History> 
+        <Update release="7">
+            <Date>2026-10-07</Date>
+            <Version>6.3.0</Version>
+            <Comment>Version bump to 6.3.0</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="6">
+            <Date>2026-04-05</Date>
+            <Version>6.1.0</Version>
+            <Comment>Version Bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="5">
+            <Date>2025-12-11</Date>
+            <Version>6.0.2</Version>
+            <Comment>Version Bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="4">
+            <Date>2025-09-30</Date>
+            <Version>5.13.1</Version>
+            <Comment>Version Bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>   
+        <Update release="3">
+            <Date>2022-02-08</Date>
+            <Version>5.6.0</Version>
+            <Comment>Version Bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>   
+         <Update release="2">
+            <Date>2022-12-12</Date>
+            <Version>5.2.2</Version>
+            <Comment>Version Bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>  
+        <Update release="1">
+            <Date>2021-12-10</Date>
+            <Version>5.0.2</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

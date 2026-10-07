@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>Pot-Desktop</Name>
+        <Homepage>https://pot-app.com/en/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary>Your last translation software</Summary>
+        <Description>Your last translation software</Description>
+        <License>GPL-3.0</License>
+        <PartOf>utility</PartOf>
+        <Archive sha1sum="a519ab5498418e335ee9d8ff77d35df352c498ad" type="binary">https://github.com/pot-app/pot-desktop/releases/download/3.0.7/pot_3.0.7_amd64.AppImage</Archive>        
+    </Source>
+
+    <Package>
+        <Name>Pot-Desktop</Name>
+        <RuntimeDependencies>
+            <Dependency>libthai</Dependency>
+        </RuntimeDependencies>
+      
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>  
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/icons</Path>         
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/Pot-Desktop.desktop">Pot-Desktop.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/Pot-Desktop.png">Pot-Desktop.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    
+    <History>       
+        <Update release="2">
+            <Date>2026-10-07</Date>
+            <Version>3.0.7</Version>
+            <Comment>Version bump to 3.0.7</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="1">
+            <Date>2024-01-31</Date>
+            <Version>2.7.4</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

@@ -510,9 +510,9 @@
       "latest_version": "v1.96.61",
       "upstream": "brave/brave-browser",
       "release_url": "https://github.com/brave/brave-browser/releases/tag/v1.96.61",
-      "candidate_url": "https://github.com/brave/brave-browser/releases/download/v1.96.61/brave-browser-nightly-1.96.61-linux-amd64.zip",
+      "candidate_url": null,
       "candidate_sha1": null,
-      "detail": null,
+      "detail": "uygun dosya bulunamadı (adaylar: brave-browser-1.96.61-1.aarch64.rpm, brave-browser-1.96.61-1.x86_64.rpm, brave-browser-1.96.61-linux-amd64.zip, brave-browser-1.96.61-linux-arm64.zip, Brave-Browser-arm64.dmg)",
       "recipe_path": "network/browser/brave-nightly/pspec.xml"
     },
     {
@@ -726,9 +726,9 @@
       "latest_version": "v2.1.7",
       "upstream": "balena-io/etcher",
       "release_url": "https://github.com/balena-io/etcher/releases/tag/v2.1.7",
-      "candidate_url": "https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-x64.AppImage",
+      "candidate_url": null,
       "candidate_sha1": null,
-      "detail": null,
+      "detail": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.7-1.x86_64.rpm, balena-etcher_2.1.7_amd64.deb, balenaEtcher-2.1.7-arm64.dmg, balenaEtcher-2.1.7-x64.dmg, balenaEtcher-2.1.7.Setup.exe)",
       "recipe_path": "util/admin/etcher/pspec.xml"
     },
     {
@@ -834,7 +834,7 @@
       "latest_version": "1.1.4",
       "upstream": "FreeCAD/FreeCAD",
       "release_url": "https://github.com/FreeCAD/FreeCAD/releases/tag/1.1.4",
-      "candidate_url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-conda-Linux-x86_64-py311.AppImage",
+      "candidate_url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-Linux-x86_64-py311.AppImage",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "multimedia/graphics/freecad/pspec.xml"
@@ -1014,7 +1014,7 @@
       "latest_version": "v0.24.0",
       "upstream": "4gray/iptvnator",
       "release_url": "https://github.com/4gray/iptvnator/releases/tag/v0.24.0",
-      "candidate_url": "https://github.com/4gray/iptvnator/releases/download/v0.24.0/iptvnator_0.24.0_amd64.deb",
+      "candidate_url": "https://github.com/4gray/iptvnator/releases/download/v0.24.0/iptvnator-0.24.0-linux-amd64.deb",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "multimedia/tv/iptvnator/pspec.xml"
@@ -1062,7 +1062,7 @@
       "latest_version": "v2.4.6",
       "upstream": "troyeguo/koodo-reader",
       "release_url": "https://github.com/troyeguo/koodo-reader/releases/tag/v2.4.6",
-      "candidate_url": "https://github.com/troyeguo/koodo-reader/releases/download/v2.4.6/Koodo-Reader-2.4.6.AppImage",
+      "candidate_url": "https://github.com/troyeguo/koodo-reader/releases/download/v2.4.6/Koodo-Reader-2.4.6-x86_64.AppImage",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "office/koodo-reader/pspec.xml"
@@ -1374,7 +1374,7 @@
       "latest_version": "v0.7.2",
       "upstream": "pencil2d/pencil",
       "release_url": "https://github.com/pencil2d/pencil/releases/tag/v0.7.2",
-      "candidate_url": "https://github.com/pencil2d/pencil/releases/download/v0.7.2/pencil2d-linux-amd64-0.7.2.AppImage",
+      "candidate_url": "https://github.com/pencil2d/pencil/releases/download/v0.7.2/pencil2d-linux-amd64-v0.7.2.AppImage",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "multimedia/graphics/pencil2d/pspec.xml"
@@ -1626,7 +1626,7 @@
       "latest_version": "v1.5.5",
       "upstream": "synfig/synfig",
       "release_url": "https://github.com/synfig/synfig/releases/tag/v1.5.5",
-      "candidate_url": "https://github.com/synfig/synfig/releases/download/v1.5.5/SynfigStudio-1.5.5-2021.10.21-linux64-2cb6c.appimage",
+      "candidate_url": "https://github.com/synfig/synfig/releases/download/v1.5.5/SynfigStudio-1.5.5-2026.03.15-linux64-79bf7.appimage",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "multimedia/graphics/synfig/pspec.xml"

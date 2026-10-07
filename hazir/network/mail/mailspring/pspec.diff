@@ -1,0 +1,27 @@
+--- a/network/mail/mailspring/pspec.xml
++++ b/network/mail/mailspring/pspec.xml
+@@ -12,8 +12,8 @@
+         <IsA>app:gui</IsA>
+         <Summary>A beautiful, fast and maintained fork of Nylas Mail by one of the original authors.</Summary>
+         <Description>A beautiful, fast and maintained fork of Nylas Mail by one of the original authors..</Description>
+-        <Archive sha1sum="251e33fdcbab7ae7e5117fd6e9b783be0f899059" type="binary">
+-            https://github.com/Foundry376/Mailspring/releases/download/1.19.0/mailspring-1.19.0-amd64.deb
++        <Archive sha1sum="88c134f38d0272a0b743dd90ae42faedbb65cdb5" type="binary">
++            https://github.com/Foundry376/Mailspring/releases/download/1.26.0/mailspring-1.26.0-amd64.deb
+         </Archive>
+     </Source>
+     <!-- https://github.com/Foundry376/Mailspring/releases -->
+@@ -41,6 +41,13 @@
+     
+     <History>
+     
++        <Update release="10">
++            <Date>2026-10-07</Date>
++            <Version>1.26.0</Version>
++            <Comment>Version bump to 1.26.0</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="9">
+             <Date>2026-04-05</Date>
+             <Version>1.19.0</Version>

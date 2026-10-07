@@ -1,0 +1,27 @@
+--- a/network/chat/mattermost/pspec.xml
++++ b/network/chat/mattermost/pspec.xml
+@@ -12,8 +12,8 @@
+         <Description>Open source Slack-alternative in Golang and React</Description>
+         <License>AGPL, Apache</License>
+         <PartOf>Network</PartOf>
+-        <Archive sha1sum="dd169b92bdae41edc7a8d92cb6f9f8154d7f1916" type="targz">
+-            https://github.com/mattermost/desktop/releases/download/v6.1.0/mattermost-desktop-6.1.0-linux-x64.tar.gz
++        <Archive sha1sum="1ed6d20de7ae9e299cbe1250d89845d423f89468" type="targz">
++            https://github.com/mattermost/desktop/releases/download/v6.3.0/mattermost-desktop-6.3.0-linux-x64.tar.gz
+         </Archive>        
+     </Source>
+     <!-- https://github.com/mattermost/desktop/releases -->
+@@ -35,6 +35,13 @@
+     </Package>
+     
+     <History> 
++        <Update release="7">
++            <Date>2026-10-07</Date>
++            <Version>6.3.0</Version>
++            <Comment>Version bump to 6.3.0</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="6">
+             <Date>2026-04-05</Date>
+             <Version>6.1.0</Version>

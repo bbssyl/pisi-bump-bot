@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://www.pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>koodo-reader</Name>
+        <Homepage>fhttps://github.com/troyeguo/koodo-reader</Homepage>
+        <Packager>
+            <Name>PisiLinux Community</Name>
+            <Email>admins@pisilinux.org</Email>
+        </Packager>
+        <License>AGPL-3.0</License>
+        <Icon>koodo-reader</Icon>
+        <IsA>app:gui</IsA>
+        <PartOf>office.misc</PartOf>
+        <Summary>A cross-platform ebook reader</Summary>
+        <Summary xml:lang="tr">Platformlar arası bir e-kitap okuyucu</Summary>
+        <Description>A cross-platform ebook reader</Description>
+        <Archive sha1sum="9664c5e98f84f479e0985ca2c04e5a1b8ebb7e04" type="binary">https://github.com/troyeguo/koodo-reader/releases/download/v2.4.6/Koodo-Reader-2.4.6-x86_64.AppImage</Archive>
+        <!-- BuildDependencies>
+            <Dependency>gtk2-devel</Dependency>
+            <Dependency>libnotify-devel</Dependency>
+            <Dependency>nss-devel</Dependency>
+            <Dependency>libX11-devel</Dependency>
+            <Dependency>libxcb-devel</Dependency>
+            <Dependency>libXext-devel</Dependency>
+            <Dependency>libXtst-devel</Dependency>
+            <Dependency>xdg-utils-cxx-devel</Dependency>
+            <Dependency>at-spi2-atk-devel</Dependency>
+            <Dependency>util-linux</Dependency>
+            <Dependency>libappindicator-gtk2-devel</Dependency>
+            <Dependency>libsecret-devel</Dependency>
+        </BuildDependencies -->
+        <Patches>
+        </Patches>
+    </Source>
+
+    <Package>
+        <Name>koodo-reader</Name>
+        <RuntimeDependencies>
+            <Dependency>nss</Dependency>
+            <Dependency>gtk2</Dependency>
+            <Dependency>zlib</Dependency>
+            <Dependency>libgcc</Dependency>
+            <Dependency>libX11</Dependency>
+            <Dependency>libxcb</Dependency>
+            <Dependency>libXext</Dependency>
+            <Dependency>libXtst</Dependency>
+            <Dependency>xdg-utils</Dependency>
+            <Dependency>libsecret</Dependency>
+            <Dependency>libnotify</Dependency>
+            <Dependency>at-spi2-atk</Dependency>
+            <Dependency>libappindicator-gtk2</Dependency>
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="library">/opt</Path>
+            <Path fileType="library">/usr/bin</Path>
+            <Path fileType="doc">/usr/share/applications</Path>
+            <Path fileType="doc">/usr/share/icons/</Path>
+            <!-- Path fileType="doc">/usr/share/doc</Path>
+            <Path fileType="doc">/usr/share/mime/packages</Path -->
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/koodo-reader.desktop">koodo-reader.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/koodo-reader.png">koodo-reader.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+
+    <History>
+         <Update release="2">
+            <Date>2026-10-07</Date>
+            <Version>2.4.6</Version>
+            <Comment>Version bump to 2.4.6</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+         <Update release="1">
+            <Date>2022-07-27</Date>
+            <Version>1.4.5</Version>
+            <Comment>First release</Comment>
+            <Name>Ali Cengiz Kurt</Name>
+            <Email>alicengizkurt@gmail.com</Email>
+        </Update>
+    </History>
+</PISI>
