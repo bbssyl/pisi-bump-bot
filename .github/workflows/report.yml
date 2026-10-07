@@ -10,17 +10,20 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  issues: write
+  contents: read
+
+env:
+  REPORT_ARTIFACT: rapor-dosyalari
+  CONTRIB_URL: https://git.pisilinux.org/Pisilinux/contrib.git
 
 jobs:
   report:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      GH_TOKEN: ${{ github.token }}
-      DASHBOARD_LABEL: rapor-panosu
-      DASHBOARD_TITLE: Pisi contrib güncellik panosu
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    outputs:
+      recipes: ${{ steps.prepare.outputs.recipes }}
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +42,7 @@ jobs:
 
       - name: Contrib deposunu klonla
         run: |
-          git clone --depth 1 https://git.pisilinux.org/Pisilinux/contrib.git "$RUNNER_TEMP/contrib"
+          git clone --depth 1 "$CONTRIB_URL" "$RUNNER_TEMP/contrib"
           echo "SOURCE_COMMIT=$(git -C "$RUNNER_TEMP/contrib" rev-parse --short HEAD)" >> "$GITHUB_ENV"
 
       - name: Raporu üret
@@ -58,6 +61,219 @@ jobs:
             --new-updates new-updates.md \
             "${previous_args[@]}"
 
+      - name: Güncellemeleri hazırla
+        id: prepare
+        run: |
+          python3 -m pisi_bump_bot prepare \
+            --report report.json \
+            --recipes-dir "$RUNNER_TEMP/contrib" \
+            --state state/builds.json \
+            --output-dir hazir \
+            --build-list "$RUNNER_TEMP/build-list.json"
+          echo "recipes=$(cat "$RUNNER_TEMP/build-list.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Rapor dosyalarını yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPORT_ARTIFACT }}
+          path: |
+            REPORT.md
+            report.json
+            new-updates.md
+            hazir
+            state
+          retention-days: 7
+          if-no-files-found: error
+
+  build:
+    needs: report
+    if: needs.report.outputs.recipes != '[]' && needs.report.outputs.recipes != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix:
+        recipe: ${{ fromJSON(needs.report.outputs.recipes) }}
+    env:
+      RECIPE: ${{ matrix.recipe }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Paket yolunu doğrula
+        run: |
+          if ! [[ "$RECIPE" =~ ^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$ ]] || [[ "$RECIPE" == *..* ]]; then
+            echo "Geçersiz paket yolu: $RECIPE"
+            exit 1
+          fi
+          echo "ARTIFACT_SUFFIX=$(echo "$RECIPE" | tr '/' '-')" >> "$GITHUB_ENV"
+
+      - name: Rapor dosyalarını indir
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.REPORT_ARTIFACT }}
+          path: ${{ runner.temp }}/rapor
+
+      - name: Contrib deposunu klonla ve hazır pspec'i uygula
+        run: |
+          git clone --depth 1 "$CONTRIB_URL" "$RUNNER_TEMP/contrib"
+          test -f "$RUNNER_TEMP/contrib/$RECIPE/pspec.xml"
+          test -f "$RUNNER_TEMP/rapor/hazir/$RECIPE/pspec.xml"
+          cp "$RUNNER_TEMP/rapor/hazir/$RECIPE/pspec.xml" "$RUNNER_TEMP/contrib/$RECIPE/pspec.xml"
+          echo "VERSION=$(jq -r --arg path "$RECIPE" '.packages[$path].version // empty' "$RUNNER_TEMP/rapor/state/builds.json")" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/out"
+
+      - name: Docker imajını çek
+        run: docker pull pisilinux/chroot
+
+      - name: Paketi derle
+        continue-on-error: true
+        run: |
+          start_time=$(date +%s)
+          set +e
+          docker run --rm --security-opt seccomp=unconfined \
+            -v "$RUNNER_TEMP/contrib:/git" \
+            -v "$RUNNER_TEMP/out:/out" \
+            -v "$GITHUB_WORKSPACE/ci:/ci:ro" \
+            pisilinux/chroot bash /ci/pisi-build-in-container.sh "$RECIPE" false
+          docker_status=$?
+          echo "DURATION_SECONDS=$(( $(date +%s) - start_time ))" >> "$GITHUB_ENV"
+          exit "$docker_status"
+
+      - name: Çıktı sahipliğini düzelt
+        if: always()
+        run: sudo chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/out" || true
+
+      - name: Büyük paketleri ayır
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/oversized"
+          : > "$RUNNER_TEMP/oversized.txt"
+          find "$RUNNER_TEMP/out" -maxdepth 1 -name '*.pisi' -size +1G | while read -r file; do
+            echo "$(basename "$file") 1 GB sınırını aştığı için yüklenmedi" >> "$RUNNER_TEMP/oversized.txt"
+            mv "$file" "$RUNNER_TEMP/oversized/"
+          done
+          cat "$RUNNER_TEMP/oversized.txt"
+
+      - name: Sonuç dosyasını yaz
+        if: always()
+        run: |
+          out="$RUNNER_TEMP/out"
+          code=$(cat "$out/status.txt" 2>/dev/null || echo 1)
+          if [ "$code" = "0" ]; then result=basarili; else result=basarisiz; fi
+          pisi_files=$(find "$out" -maxdepth 1 -name '*.pisi' -printf '%f\n' 2>/dev/null | sort | jq -R . | jq -s .)
+          mkdir -p "$RUNNER_TEMP/result"
+          jq -n \
+            --arg recipe_path "$RECIPE" \
+            --arg version "${VERSION:-}" \
+            --arg status "$result" \
+            --argjson pisi_files "${pisi_files:-[]}" \
+            --arg run_id "$GITHUB_RUN_ID" \
+            --arg artifact_name "derleme-$ARTIFACT_SUFFIX" \
+            '{recipe_path: $recipe_path, version: $version, status: $status, pisi_files: $pisi_files, run_id: $run_id, artifact_name: $artifact_name}' \
+            > "$RUNNER_TEMP/result/result-$ARTIFACT_SUFFIX.json"
+          {
+            echo "## Derleme: \`$RECIPE\`"
+            echo
+            echo "- Sürüm: \`${VERSION:-bilinmiyor}\`"
+            echo "- Süre: ${DURATION_SECONDS:-bilinmiyor} sn"
+            echo "- Sonuç: $result (çıkış kodu: $code)"
+            echo
+            echo "<details><summary>build.log son 40 satır</summary>"
+            echo
+            echo '```'
+            tail -n 40 "$out/build.log" 2>/dev/null || echo "build.log yok"
+            echo '```'
+            echo
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Derleme çıktılarını yükle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: derleme-${{ env.ARTIFACT_SUFFIX }}
+          path: |
+            ${{ runner.temp }}/out/build.log
+            ${{ runner.temp }}/out/status.txt
+            ${{ runner.temp }}/out/packages.txt
+            ${{ runner.temp }}/out/*.pisi
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Sonuç dosyasını yükle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ env.ARTIFACT_SUFFIX }}
+          path: ${{ runner.temp }}/result/result-${{ env.ARTIFACT_SUFFIX }}.json
+          retention-days: 7
+          if-no-files-found: warn
+
+  publish:
+    needs: [report, build]
+    if: always() && needs.report.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DASHBOARD_LABEL: rapor-panosu
+      DASHBOARD_TITLE: Pisi contrib güncellik panosu
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rapor dosyalarını indir
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.REPORT_ARTIFACT }}
+          path: ${{ runner.temp }}/rapor
+
+      - name: Derleme sonuçlarını indir
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: result-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/results
+
+      - name: Dosyaları çalışma alanına yerleştir
+        run: |
+          rm -rf hazir state
+          cp "$RUNNER_TEMP/rapor/report.json" report.json
+          cp "$RUNNER_TEMP/rapor/new-updates.md" new-updates.md
+          cp -r "$RUNNER_TEMP/rapor/state" state
+          if [ -d "$RUNNER_TEMP/rapor/hazir" ]; then
+            cp -r "$RUNNER_TEMP/rapor/hazir" hazir
+          fi
+          mkdir -p "$RUNNER_TEMP/results"
+
+      - name: Derleme sonuçlarını duruma işle
+        run: |
+          python3 -m pisi_bump_bot merge-results \
+            --state state/builds.json \
+            --results-dir "$RUNNER_TEMP/results" \
+            --comment "$RUNNER_TEMP/build-comment.md" \
+            --repo-web-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+
+      - name: Raporları üret
+        run: |
+          web_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+          python3 -m pisi_bump_bot render \
+            --report report.json --state state/builds.json \
+            --markdown REPORT.md --repo-web-url "$web_url" --relative-files
+          python3 -m pisi_bump_bot render \
+            --report report.json --state state/builds.json \
+            --markdown "$RUNNER_TEMP/REPORT-web.md" --repo-web-url "$web_url"
+
       - name: Çalışma başlığını hazırla
         run: |
           {
@@ -71,13 +287,17 @@ jobs:
 
       - name: Adım özetine yaz
         run: |
-          cat "$RUNNER_TEMP/header.md" REPORT.md >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/header.md" "$RUNNER_TEMP/REPORT-web.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Rapor dosyalarını commit et
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add REPORT.md report.json
+          mkdir -p hazir
+          git add -A -- REPORT.md report.json state
+          if [ -n "$(git ls-files hazir)$(ls -A hazir)" ]; then
+            git add -A -- hazir
+          fi
           if git diff --cached --quiet; then
             echo "Rapor değişmedi."
           else
@@ -96,7 +316,7 @@ jobs:
               --label "$DASHBOARD_LABEL" --body "Pano hazırlanıyor.")
             issue_number="${issue_url##*/}"
           fi
-          cat "$RUNNER_TEMP/header.md" REPORT.md > "$RUNNER_TEMP/body-full.md"
+          cat "$RUNNER_TEMP/header.md" "$RUNNER_TEMP/REPORT-web.md" > "$RUNNER_TEMP/body-full.md"
           if [ "$(wc -c < "$RUNNER_TEMP/body-full.md")" -ge 65000 ]; then
             head -c 60000 "$RUNNER_TEMP/body-full.md" | sed '$d' > "$RUNNER_TEMP/body.md"
             {
@@ -107,8 +327,9 @@ jobs:
             cp "$RUNNER_TEMP/body-full.md" "$RUNNER_TEMP/body.md"
           fi
           gh issue edit "$issue_number" --body-file "$RUNNER_TEMP/body.md"
-          if [ -s new-updates.md ]; then
-            gh issue comment "$issue_number" --body-file new-updates.md
+          cat new-updates.md "$RUNNER_TEMP/build-comment.md" > "$RUNNER_TEMP/comment.md"
+          if [ -s "$RUNNER_TEMP/comment.md" ]; then
+            gh issue comment "$issue_number" --body-file "$RUNNER_TEMP/comment.md"
           fi
 
       - name: Keepalive

@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>opera</Name>
+        <Homepage>https://www.opera.com/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary xml:lang="en">Fast, secure and feature-rich web browser with built-in VPN and ad blocker</Summary>
+        <Summary xml:lang="tr">Hızlı, güvenli ve özellik zengini web tarayıcısı, yerleşik VPN ve reklam engelleme ile</Summary>
+        <Description xml:lang="en">Opera is a fast, secure, and feature-rich web browser with built-in VPN, ad blocker, battery saver, and integrated social media messengers. Features include workspaces, flow synchronization, crypto wallet, and AI-powered browsing assistance.</Description>
+        <Description xml:lang="tr">Opera, yerleşik VPN, reklam engelleyici, pil tasarrufu ve entegre sosyal medya mesajlaşma özelliklerine sahip hızlı, güvenli ve özellik zengini bir web tarayıcısıdır. Çalışma alanları, Flow senkronizasyonu, kripto cüzdanı ve AI destekli gezinme yardımı özelliklerini içerir.</Description>
+        <License>EULA</License>
+        <Icon>opera</Icon>
+        <Archive sha1sum="086e4eccf8d458737374ef176ec33c55bb726f97" type="binary">
+            https://download5.operacdn.com/ftp/pub/opera/desktop/133.0.5932.85/linux/opera-stable_133.0.5932.85_amd64.deb
+        </Archive>
+        <!-- https://download5.operacdn.com/ftp/pub/opera/desktop/ -->
+    </Source>
+    <Package>
+        <Name>opera-stable</Name>
+        <RuntimeDependencies>
+            <Dependency>atk</Dependency>
+            <Dependency>gtk3</Dependency>
+            <Dependency>libxcb</Dependency>
+            <Dependency>at-spi2-atk</Dependency>
+            <Dependency>at-spi2-core</Dependency>
+            <Dependency>nss</Dependency>
+            <Dependency>cups</Dependency>
+            <Dependency>curl</Dependency>
+            <Dependency>dbus</Dependency>
+            <Dependency>gtk2</Dependency>
+            <Dependency>nspr</Dependency>
+            <Dependency>zlib</Dependency>
+            <Dependency>cairo</Dependency>
+            <Dependency>expat</Dependency>
+            <Dependency>dconf</Dependency>
+            <Dependency>glib2</Dependency>
+            <Dependency>libXi</Dependency>
+            <Dependency>pango</Dependency>
+            <Dependency>libX11</Dependency>
+            <Dependency>libgcc</Dependency>
+            <Dependency>libXext</Dependency>
+            <Dependency>libXtst</Dependency>
+            <Dependency>alsa-lib</Dependency>
+            <Dependency>libXfixes</Dependency>
+            <Dependency>libXrandr</Dependency>
+            <Dependency>libnotify</Dependency>
+            <Dependency>fontconfig</Dependency>
+            <Dependency>gdk-pixbuf</Dependency>
+            <Dependency>libXcursor</Dependency>
+            <Dependency>libXdamage</Dependency>
+            <Dependency>libXrender</Dependency>
+            <Dependency>libXScrnSaver</Dependency>
+            <Dependency>libXcomposite</Dependency>
+            <Dependency>wayland-client</Dependency>
+	        <Dependency>gsettings-desktop-schemas</Dependency>	
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="executable">/opt</Path>
+            <Path fileType="executable">/usr</Path>  
+        </Files>
+         <AdditionalFiles>
+            <AdditionalFile target="/opt/opera/libffmpeg.so" owner="root">libffmpeg.so</AdditionalFile>             
+        </AdditionalFiles>
+    </Package>
+    <History>
+        <Update release="54">
+            <Date>2026-08-01</Date>
+            <Version>133.0.5932.85</Version>
+            <Comment>Version bump to 133.0.5932.85</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="53">
+            <Date>2026-05-29</Date>
+            <Version>132.0.5905.11</Version>
+            <Comment>Version bump to 132.0.5905.11</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="52">
+            <Date>2026-04-18</Date>
+            <Version>130.0.5847.41</Version>
+            <Comment>Version bump to 130.0.5847.41</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="51">
+            <Date>2026-04-05</Date>
+            <Version>129.0.5823.44</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="50">
+            <Date>2026-02-05</Date>
+            <Version>126.0.5750.59</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="49">
+            <Date>2025-12-11</Date>
+            <Version>125.0.5729.15</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="48">
+            <Date>2025-10-01</Date>
+            <Version>122.0.5643.92</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="47">
+            <Date>2025-08-07</Date>
+            <Version>120.0.5543.161</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="46">
+            <Date>2025-07-10</Date>
+            <Version>120.0.5543.61</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="45">
+            <Date>2025-05-26</Date>
+            <Version>119.0.5497.40</Version>
+            <Comment>Version bump.</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        
+    </History>
+</PISI>

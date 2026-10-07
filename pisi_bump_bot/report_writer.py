@@ -1,6 +1,7 @@
 import json
 from dataclasses import asdict
 
+from pisi_bump_bot.build_columns import BuildLinks
 from pisi_bump_bot.report_model import PackageReport, Report, Status
 
 EMPTY_CELL = "-"
@@ -64,15 +65,26 @@ def code(value: str | None) -> str | None:
     return f"`{value}`" if value else None
 
 
-def outdated_table(packages: tuple[PackageReport, ...]) -> list[str]:
+def outdated_row(package: PackageReport, links: BuildLinks | None) -> tuple[str | None, ...]:
+    row = (
+        package.name, code(package.recipe_path), package.current_version, package.latest_version,
+        link(package.upstream, package.release_url), code(package.candidate_url),
+    )
+    if links is None:
+        return row
+    version = package.latest_version
+    return row + (
+        links.prepared_cell(package.recipe_path, version), links.build_cell(package.recipe_path, version)
+    )
+
+
+def outdated_table(packages: tuple[PackageReport, ...], links: BuildLinks | None = None) -> list[str]:
     if not packages:
         return ["Eski paket yok."]
-    rows = [
-        (p.name, code(p.recipe_path), p.current_version, p.latest_version,
-         link(p.upstream, p.release_url), code(p.candidate_url))
-        for p in packages
-    ]
-    return table(("Paket", "Pspec", "Mevcut", "Yeni", "Kaynak", "Aday arşiv URL"), rows)
+    headers = ("Paket", "Pspec", "Mevcut", "Yeni", "Kaynak", "Aday arşiv URL")
+    if links is not None:
+        headers += ("Hazır pspec", "Derleme")
+    return table(headers, [outdated_row(package, links) for package in packages])
 
 
 def generic_table(packages: tuple[PackageReport, ...]) -> list[str]:
@@ -126,10 +138,10 @@ def source_line(report: Report) -> str:
     return f"Kaynak: {SOURCE_URL} (pspec.xml dosyaları{commit})"
 
 
-def render_markdown(report: Report) -> str:
+def render_markdown(report: Report, links: BuildLinks | None = None) -> str:
     lines = ["# Pisi Linux contrib güncellik raporu", "", source_line(report), ""]
     lines += ["## Özet", "", *summary_lines(report), "", "## Eski paketler", ""]
-    lines += outdated_table(report.with_status(Status.OUTDATED))
+    lines += outdated_table(report.with_status(Status.OUTDATED), links)
     for status, title in COLLAPSED_SECTIONS:
         packages = report.with_status(status)
         if packages:

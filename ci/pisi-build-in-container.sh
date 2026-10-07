@@ -18,29 +18,9 @@ start_dbus() {
   service dbus start 2>&1 | tee -a "$log_file" || true
 }
 
-has_repo() {
-  pisi lr 2>/dev/null | grep -qi "^$1\b"
-}
-
-add_repo_if_missing() {
-  local repo_name="$1"
-  local repo_url="$2"
-  if has_repo "$repo_name"; then
-    echo "Depo zaten var: $repo_name" | tee -a "$log_file"
-    return 0
-  fi
-  echo "Depo ekleniyor: $repo_name" | tee -a "$log_file"
-  pisi ar "$repo_name" "$repo_url" --ignore-check 2>&1 | tee -a "$log_file" || true
-}
-
-configure_repos() {
-  log_phase "Depolar ayarlanıyor"
-  echo "-- Başlangıçtaki depolar --" | tee -a "$log_file"
-  pisi lr 2>&1 | tee -a "$log_file" || true
+list_repos() {
+  log_phase "Yapılandırılmış depolar"
   update-ca-certificates 2>&1 | tee -a "$log_file" || true
-  add_repo_if_missing core https://github.com/pisilinux/core/raw/master/pisi-index.xml.xz
-  add_repo_if_missing main https://github.com/pisilinux/main/raw/master/pisi-index.xml.xz
-  echo "-- Son depolar --" | tee -a "$log_file"
   pisi lr 2>&1 | tee -a "$log_file" || true
 }
 
@@ -73,7 +53,7 @@ list_packages() {
 }
 
 start_dbus
-configure_repos
+list_repos
 update_repos || echo "pisi ur başarısız oldu, derleme yine de deneniyor" | tee -a "$log_file"
 upgrade_system || echo "Yükseltme başarısız oldu, derleme yine de deneniyor" | tee -a "$log_file"
 

@@ -5,15 +5,18 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from pisi_bump_bot.archive_download import download_sha1
 from pisi_bump_bot.errors import BotError
 from pisi_bump_bot.github_upstream import GithubLookup
 from pisi_bump_bot.http_client import Fetch, HashArchive, stream_sha1, urllib_fetch
 from pisi_bump_bot.index_consistency import check_index_consistency
 from pisi_bump_bot.new_updates import load_previous_outdated, package_key, render_new_updates
 from pisi_bump_bot.package_checker import PackageChecker
+from pisi_bump_bot.prepare_runner import Downloader
 from pisi_bump_bot.recipes_reader import RecipeLoad, load_recipes
 from pisi_bump_bot.report_model import PackageReport, Report, Status
 from pisi_bump_bot.report_writer import render_console, render_json, render_markdown, sort_packages
+from pisi_bump_bot.subcommands import SUBCOMMANDS, run_subcommand
 
 TOKEN_VARIABLE = "GITHUB_TOKEN"
 UNREADABLE_DETAIL = "pspec.xml okunamadı"
@@ -24,6 +27,7 @@ class Runtime:
     fetch: Fetch = urllib_fetch
     hash_archive: HashArchive = stream_sha1
     token: str | None = None
+    download: Downloader = download_sha1
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -87,6 +91,9 @@ def run(arguments: argparse.Namespace, runtime: Runtime) -> int:
 
 
 def main(argv: Sequence[str] | None = None, runtime: Runtime | None = None) -> int:
-    arguments = build_parser().parse_args(argv)
     active = runtime or Runtime(token=os.environ.get(TOKEN_VARIABLE))
+    words = list(sys.argv[1:] if argv is None else argv)
+    if words and words[0] in SUBCOMMANDS:
+        return run_subcommand(words, active.download)
+    arguments = build_parser().parse_args(words)
     return run(arguments, active)

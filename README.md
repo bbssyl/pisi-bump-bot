@@ -13,11 +13,10 @@ Bot hiçbir zaman:
 - Pisi depolarına yazmaz veya push yapmaz.
 - Pisi depolarında PR veya issue açmaz.
 - Başka bir yerde PR açmaz.
-- Varsayılan çalışmada kaynak arşivlerini indirmez (sha1 yalnızca `--with-hash` ile hesaplanır, workflow bu bayrağı kullanmaz).
 - Workflow'un varsayılan `GITHUB_TOKEN` değeri dışında bir token kullanmaz.
 - Telegram gibi başka bir kanala bildirim göndermez.
 
-Yalnızca kendi deposuna yazar: `REPORT.md`, `report.json` ve tek bir pano issue'su.
+Yalnızca kendi deposuna yazar: `REPORT.md`, `report.json`, `hazir/`, `state/builds.json` ve tek bir pano issue'su.
 
 ## Sonuçları nerede görebilirsiniz
 
@@ -26,6 +25,12 @@ Yalnızca kendi deposuna yazar: `REPORT.md`, `report.json` ve tek bir pano issue
 - `REPORT.md` ve `report.json`: yalnızca içerik değiştiğinde commit edilir.
 
 Rapor durumları: `eski`, `guncel`, `desteklenmiyor`, `karsilastirilamadi`, `hata`. Raporda ayrıca bilgi amaçlı "Index tutarsızlıkları" bölümü bulunur. Klonda `pisi-index.xml.xz` (veya `pisi-index.xml`) varsa, index'te olmayan paketler ve `pspec.xml` sürümü index sürümünden farklı olan paketler listelenir. Sürüm karşılaştırması index'e değil `pspec.xml` dosyalarına dayanır.
+
+## Hazır pspec ve deneme derlemesi
+
+Workflow üç işten oluşur: `report` (rapor + hazırlık), `build` (matrix, en fazla 5 paralel) ve `publish` (commit, pano). Her çalışmada en fazla 10 `eski` GitHub paketi için aday arşiv indirilir, sha1 hesaplanır ve yalnızca `Archive` + yeni `History` kaydı değiştirilerek `hazir/<paket yolu>/pspec.xml` ve `pspec.diff` üretilir (bağımlılıklara dokunulmaz). Arşiv inmezse paket "otomatik hazırlanamadı: <neden>" olarak işaretlenir ve aynı sürüm için tekrar denenmez.
+
+Hazırlanan pspec, `pisilinux/chroot` kapsayıcısında derlenir. Derleme günlüğü ve `.pisi` dosyaları (1 GB üstü hariç) 14 gün saklanan artifact olarak yüklenir. Derlenen paketler yalnızca denemedir. Durum `state/builds.json` içinde tutulur; aynı yol + sürüm bir daha derlenmez. Paket artık `eski` değilse `hazir/` ve durum kaydı silinir.
 
 ## Elle çalıştırma
 
