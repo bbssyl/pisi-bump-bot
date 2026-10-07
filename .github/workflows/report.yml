@@ -1,0 +1,123 @@
+name: Güncellik raporu
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: guncellik-raporu
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DASHBOARD_LABEL: rapor-panosu
+      DASHBOARD_TITLE: Pisi contrib güncellik panosu
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Testleri çalıştır
+        run: python3 -m unittest discover -s tests
+
+      - name: Önceki raporu ayır
+        run: |
+          if [ -f report.json ]; then
+            cp report.json "$RUNNER_TEMP/previous.json"
+          fi
+
+      - name: Contrib deposunu klonla
+        run: |
+          git clone --depth 1 https://git.pisilinux.org/Pisilinux/contrib.git "$RUNNER_TEMP/contrib"
+          echo "SOURCE_COMMIT=$(git -C "$RUNNER_TEMP/contrib" rev-parse --short HEAD)" >> "$GITHUB_ENV"
+
+      - name: Raporu üret
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          previous_args=()
+          if [ -f "$RUNNER_TEMP/previous.json" ]; then
+            previous_args=(--previous "$RUNNER_TEMP/previous.json")
+          fi
+          python3 -m pisi_bump_bot \
+            --recipes-dir "$RUNNER_TEMP/contrib" \
+            --source-commit "$SOURCE_COMMIT" \
+            --json report.json \
+            --markdown REPORT.md \
+            --new-updates new-updates.md \
+            "${previous_args[@]}"
+
+      - name: Çalışma başlığını hazırla
+        run: |
+          {
+            echo "## Güncellik raporu"
+            echo
+            echo "Çalışma zamanı (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo
+            echo "Çalıştırma: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo
+          } > "$RUNNER_TEMP/header.md"
+
+      - name: Adım özetine yaz
+        run: |
+          cat "$RUNNER_TEMP/header.md" REPORT.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Rapor dosyalarını commit et
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add REPORT.md report.json
+          if git diff --cached --quiet; then
+            echo "Rapor değişmedi."
+          else
+            git commit -m "rapor: güncellik raporu güncellendi"
+            git push
+          fi
+
+      - name: Pano issue'sunu güncelle
+        run: |
+          gh label create "$DASHBOARD_LABEL" --color 0E8A16 \
+            --description "Güncellik panosu" 2>/dev/null || true
+          issue_number=$(gh issue list --label "$DASHBOARD_LABEL" --state open \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$issue_number" ]; then
+            issue_url=$(gh issue create --title "$DASHBOARD_TITLE" \
+              --label "$DASHBOARD_LABEL" --body "Pano hazırlanıyor.")
+            issue_number="${issue_url##*/}"
+          fi
+          cat "$RUNNER_TEMP/header.md" REPORT.md > "$RUNNER_TEMP/body-full.md"
+          if [ "$(wc -c < "$RUNNER_TEMP/body-full.md")" -ge 65000 ]; then
+            head -c 60000 "$RUNNER_TEMP/body-full.md" | sed '$d' > "$RUNNER_TEMP/body.md"
+            {
+              echo
+              echo "Rapor kısaltıldı. Tamamı: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/blob/main/REPORT.md"
+            } >> "$RUNNER_TEMP/body.md"
+          else
+            cp "$RUNNER_TEMP/body-full.md" "$RUNNER_TEMP/body.md"
+          fi
+          gh issue edit "$issue_number" --body-file "$RUNNER_TEMP/body.md"
+          if [ -s new-updates.md ]; then
+            gh issue comment "$issue_number" --body-file new-updates.md
+          fi
+
+      - name: Keepalive
+        run: |
+          last_commit_time=$(git log -1 --format=%ct)
+          age_days=$(( ($(date +%s) - last_commit_time) / 86400 ))
+          if [ "$age_days" -gt 50 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git commit --allow-empty -m "chore: keepalive"
+            git push
+          fi
