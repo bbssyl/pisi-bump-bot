@@ -54,6 +54,7 @@ Bot Rust ile yazılmıştır. Araç zinciri sürümü `rust-toolchain.toml` dosy
 
 - `crates/pisi-bump-common/`: `pspec.xml` okuma ve sürüm karşılaştırma.
 - `crates/pisi-bump-bot/`: GitHub sorguları, rapor, hazırlık ve derleme sonucu işleme. Komutlar: `report`, `prepare`, `merge-results`, `render`.
+- `crates/pisi-bump-tui/`: paketçinin kendi makinesinde elle çalıştırdığı etkileşimli terminal arayüzü (bot'un bir parçası değildir, bkz. aşağıdaki bölüm).
 - `fixtures/`: testlerin kullandığı gerçek `pspec.xml`, release dosya listesi ve durum örnekleri.
 
 Derleme ve testler:
@@ -66,6 +67,18 @@ cargo fmt --check
 ```
 
 Workflow, testleri ve derlemeyi `--locked` ile çalıştırır; bu yüzden `Cargo.lock` depoda tutulur.
+
+## pisi-bump-tui (yerel araç, Actions'ın bir parçası değil)
+
+<!-- pisi-bump-tui bölümü: TASK-014 -->
+
+`pisi-bump-tui`, bir Pisi paketçisinin `contrib`'in kendi yerel klonu üzerinde elle çalıştırdığı, etkileşimli bir terminal arayüzüdür. Bot'tan (yukarıdaki bölümler) tamamen ayrıdır: hiçbir GitHub Actions workflow'unda kullanılmaz, hiçbir yere deploy edilmez, `actions.py`'ye dokunmaz ve hiçbir `git` komutu çalıştırmaz.
+
+```sh
+cargo run -p pisi-bump-tui -- --recipes-dir /path/to/contrib
+```
+
+Akış: tüm `pspec.xml` dosyaları taranır (arka planda, ilerleme çubuğuyla), `eski` paketler tablo halinde listelenir, bir paket seçilip `Enter` ile detayına girilir, `p` ile aday arşiv indirilip sha1 hesaplanarak `pspec.xml` güncellemesi ve diff'i hazırlanır. Diskteki `pspec.xml` yalnızca `w` ile açılan onay ekranında `y` tuşuna basıldığında değişir; başka hiçbir noktada dosya yazılmaz. Kısayollar için uygulama içinde `?`.
 
 ## Sınırlamalar
 

@@ -1,0 +1,18 @@
+[package]
+name = "pisi-bump-tui"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "pisi-bump-tui"
+path = "src/main.rs"
+
+[dependencies]
+pisi-bump-common = { path = "../pisi-bump-common" }
+pisi-bump-bot = { path = "../pisi-bump-bot" }
+time = "0.3.55"
+ratatui = "0.30.2"
+crossterm = "0.29.0"
+clap = { version = "4.6.7", features = ["derive"] }
+
+[dev-dependencies]
