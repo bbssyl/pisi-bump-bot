@@ -1,0 +1,21 @@
+[package]
+name = "pisi-bump-bot"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+pisi-bump-common = { path = "../pisi-bump-common" }
+roxmltree = { workspace = true }
+regex = { workspace = true }
+fancy-regex = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+thiserror = { workspace = true }
+ureq = { version = "3.4.2", default-features = false, features = ["rustls", "gzip"] }
+sha1 = "0.11.0"
+percent-encoding = "2.3.2"
+time = "0.3.55"
+lzma-rs = "0.3.0"
+clap = { version = "4.5.51", features = ["derive"] }
+
+[dev-dependencies]

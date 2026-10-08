@@ -14,6 +14,7 @@ permissions:
 
 env:
   REPORT_ARTIFACT: rapor-dosyalari
+  BOT_ARTIFACT: bot-ikilisi
   CONTRIB_URL: https://git.pisilinux.org/Pisilinux/contrib.git
 
 jobs:
@@ -27,12 +28,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Rust araç zincirini kur
+        run: |
+          rustup toolchain install
+          rustup show active-toolchain
+          rustc -Vv
+          cargo -V
+          expected=$(sed -n 's/^channel *= *"\(.*\)"/\1/p' rust-toolchain.toml)
+          actual=$(rustc -V | cut -d' ' -f2)
+          if [ "$actual" != "$expected" ]; then
+            echo "Beklenen rustc $expected, bulunan $actual"
+            exit 1
+          fi
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Testleri çalıştır
-        run: python3 -m unittest discover -s tests
+        run: cargo test --workspace --release --locked
+
+      - name: Botu derle
+        run: |
+          cargo build --release --locked --bin pisi-bump-bot
+          mkdir -p "$RUNNER_TEMP/bot"
+          cp target/release/pisi-bump-bot "$RUNNER_TEMP/bot/pisi-bump-bot"
+          echo "BOT=$RUNNER_TEMP/bot/pisi-bump-bot" >> "$GITHUB_ENV"
 
       - name: Önceki raporu ayır
         run: |
@@ -53,7 +72,7 @@ jobs:
           if [ -f "$RUNNER_TEMP/previous.json" ]; then
             previous_args=(--previous "$RUNNER_TEMP/previous.json")
           fi
-          python3 -m pisi_bump_bot \
+          "$BOT" report \
             --recipes-dir "$RUNNER_TEMP/contrib" \
             --source-commit "$SOURCE_COMMIT" \
             --json report.json \
@@ -64,7 +83,7 @@ jobs:
       - name: Güncellemeleri hazırla
         id: prepare
         run: |
-          python3 -m pisi_bump_bot prepare \
+          "$BOT" prepare \
             --report report.json \
             --recipes-dir "$RUNNER_TEMP/contrib" \
             --state state/builds.json \
@@ -83,6 +102,14 @@ jobs:
             hazir
             state
           retention-days: 7
+          if-no-files-found: error
+
+      - name: Bot ikilisini yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BOT_ARTIFACT }}
+          path: ${{ runner.temp }}/bot/pisi-bump-bot
+          retention-days: 1
           if-no-files-found: error
 
   build:
@@ -235,9 +262,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Bot ikilisini indir
+        uses: actions/download-artifact@v4
         with:
-          python-version: "3.12"
+          name: ${{ env.BOT_ARTIFACT }}
+          path: ${{ runner.temp }}/bot
+
+      - name: Bot ikilisini hazırla
+        run: |
+          chmod +x "$RUNNER_TEMP/bot/pisi-bump-bot"
+          echo "BOT=$RUNNER_TEMP/bot/pisi-bump-bot" >> "$GITHUB_ENV"
 
       - name: Rapor dosyalarını indir
         uses: actions/download-artifact@v4
@@ -266,7 +300,7 @@ jobs:
 
       - name: Derleme sonuçlarını duruma işle
         run: |
-          python3 -m pisi_bump_bot merge-results \
+          "$BOT" merge-results \
             --state state/builds.json \
             --results-dir "$RUNNER_TEMP/results" \
             --comment "$RUNNER_TEMP/build-comment.md" \
@@ -275,10 +309,10 @@ jobs:
       - name: Raporları üret
         run: |
           web_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
-          python3 -m pisi_bump_bot render \
+          "$BOT" render \
             --report report.json --state state/builds.json \
             --markdown REPORT.md --repo-web-url "$web_url" --relative-files
-          python3 -m pisi_bump_bot render \
+          "$BOT" render \
             --report report.json --state state/builds.json \
             --markdown "$RUNNER_TEMP/REPORT-web.md" --repo-web-url "$web_url"
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>brave-browser</Name>
+        <Homepage>https://brave.com/</Homepage>
+        <PartOf>network.web</PartOf>
+        <IsA>app:gui</IsA>
+        <Icon>brave-logo</Icon>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <License>Mozilla Public License 2.0</License>
+        <Summary xml:lang="en">A web browser that stops ads and trackers by default</Summary>
+        <Summary xml:lang="tr">Varsayılan olarak reklamları ve takip kodlarını engelleyen bir web tarayıcısı</Summary>
+        <Description xml:lang="en">A web browser that stops ads and trackers by default</Description>
+        <Description xml:lang="tr">Varsayılan olarak reklamları ve takip kodlarını engelleyen bir web tarayıcısı</Description>
+        <Archive sha1sum="87f7f1897ed922ec6898b4de3d1297ea2fd1c7ae" type="binary">
+           https://github.com/brave/brave-browser/releases/download/v1.93.129/brave-browser-1.93.129-linux-amd64.zip
+        </Archive>
+        <!-- https://github.com/brave/brave-browser/ -->
+    </Source>
+    <Package>
+        <Name>brave-browser</Name>
+        <RuntimeDependencies>
+            <Dependency>nss</Dependency>
+            <Dependency>gtk3</Dependency>
+            <Dependency>libva</Dependency>
+            <Dependency>libX11</Dependency>
+            <Dependency>libgcc</Dependency>
+            <Dependency>libxcb</Dependency>
+            <Dependency>libXext</Dependency>
+            <Dependency>libXScrnSaver</Dependency>
+            <Dependency>wayland-client</Dependency>
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="executable">/opt/brave-browser</Path>
+            <Path fileType="executable">/usr/bin</Path>
+            <Path fileType="data">/usr/share/applications/</Path>
+            <Path fileType="data">/usr/share/icons</Path>
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/brave-browser.desktop" owner="root">brave-browser.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/brave-logo.png" owner="root">brave-logo.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    <History>
+        <Update release="3">
+            <Date>2026-08-01</Date>
+            <Version>1.93.129</Version>
+            <Comment>Version bump to 1.93.129</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="2">
+            <Date>2026-07-21</Date>
+            <Version>1.92.142</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan Işık</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="1">
+            <Date>2026-05-29</Date>
+            <Version>1.90.128</Version>
+            <Comment>First release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

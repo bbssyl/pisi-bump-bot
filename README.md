@@ -46,6 +46,27 @@ GitHub'da depoda Actions sekmesine gidin, "Güncellik raporu" workflow'unu seçi
 
 Her gün 03:00 UTC (Türkiye saatiyle 06:00). Son commit 50 günden eskiyse, zamanlanmış görevlerin devre dışı kalmaması için boş bir `chore: keepalive` commit'i atılır.
 
+## Geliştirme
+
+Bu bölüm kodu okuyacak katkıcılar içindir; bot kullanıcı makinesinde çalıştırılmak üzere tasarlanmamıştır ve yalnızca GitHub Actions üzerinde çalışır.
+
+Bot Rust ile yazılmıştır. Araç zinciri sürümü `rust-toolchain.toml` dosyasında sabitlenmiştir; `rustup` bu sürümü otomatik olarak kurar.
+
+- `crates/pisi-bump-common/`: `pspec.xml` okuma ve sürüm karşılaştırma.
+- `crates/pisi-bump-bot/`: GitHub sorguları, rapor, hazırlık ve derleme sonucu işleme. Komutlar: `report`, `prepare`, `merge-results`, `render`.
+- `fixtures/`: testlerin kullandığı gerçek `pspec.xml`, release dosya listesi ve durum örnekleri.
+
+Derleme ve testler:
+
+```sh
+cargo build --release
+cargo test --workspace --release
+cargo clippy --all-targets -- -D warnings
+cargo fmt --check
+```
+
+Workflow, testleri ve derlemeyi `--locked` ile çalıştırır; bu yüzden `Cargo.lock` depoda tutulur.
+
 ## Sınırlamalar
 
 - Yalnızca GitHub kaynaklı arşivler kontrol edilir. Diğer URL'ler (GitLab, SourceForge, doğrudan indirme vb.), dal anlık görüntüleri ve `raw` dosya bağlantıları `desteklenmiyor` olarak listelenir.
