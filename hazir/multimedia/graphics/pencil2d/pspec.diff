@@ -1,0 +1,25 @@
+--- a/multimedia/graphics/pencil2d/pspec.xml
++++ b/multimedia/graphics/pencil2d/pspec.xml
+@@ -12,7 +12,7 @@
+         <Description>Easy, intuitive tool to make 2D hand-drawn animations.</Description>
+         <License>GPL2</License>
+         <PartOf>Graphics</PartOf>
+-        <Archive sha1sum="dbd85592528474b37137f2120af5894047fa7c1f" type="binary">https://github.com/pencil2d/pencil/releases/download/v0.6.6/pencil2d-linux-amd64-0.6.6.AppImage</Archive>        
++        <Archive sha1sum="85426d628f9f4f1f462f32aea9ada9ff21fb70cf" type="binary">https://github.com/pencil2d/pencil/releases/download/v0.7.2/pencil2d-linux-amd64-v0.7.2.AppImage</Archive>        
+     </Source>
+ 
+     <Package>
+@@ -37,6 +37,13 @@
+     </Package>
+     
+     <History>       
++        <Update release="2">
++            <Date>2026-10-08</Date>
++            <Version>0.7.2</Version>
++            <Comment>Version bump to 0.7.2</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="1">
+             <Date>2022-02-04</Date>
+             <Version>0.6.6</Version>

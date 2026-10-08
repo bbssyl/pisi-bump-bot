@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>SynfigStudio</Name>
+        <Homepage>https://www.synfig.org/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary>Professional vector animation program</Summary>
+        <Description>Professional vector animation program</Description>
+        <License>GPL3</License>
+        <PartOf>Graphics</PartOf>
+        <Archive sha1sum="f543e9cce50b276ead4d3dc6adf8e21e56938a2b" type="binary">https://github.com/synfig/synfig/releases/download/v1.5.5/SynfigStudio-1.5.5-2026.03.15-linux64-79bf7.appimage</Archive>        
+    </Source>
+
+    <Package>
+        <Name>SynfigStudio</Name>
+        <RuntimeDependencies>
+            <Dependency>boost</Dependency>
+            <Dependency>fftw3</Dependency>
+            <Dependency>imagemagick</Dependency>
+            <Dependency>libjpeg-turbo</Dependency>
+            <Dependency>libmng</Dependency>
+            <Dependency>libxml++26</Dependency>
+            <Dependency>mlt</Dependency>
+            <Dependency>openexr</Dependency>
+            <Dependency>pango</Dependency>
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>  
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/icons</Path>         
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/SynfigStudio.desktop">SynfigStudio.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/SynfigStudio.png">SynfigStudio.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    
+    <History>       
+        <Update release="2">
+            <Date>2026-10-08</Date>
+            <Version>1.5.5</Version>
+            <Comment>Version bump to 1.5.5</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="1">
+            <Date>2022-02-05</Date>
+            <Version>1.5.1</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

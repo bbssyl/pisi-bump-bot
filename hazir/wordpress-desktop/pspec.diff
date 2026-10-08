@@ -1,0 +1,25 @@
+--- a/wordpress-desktop/pspec.xml
++++ b/wordpress-desktop/pspec.xml
+@@ -13,7 +13,7 @@
+         <IsA>app:gui</IsA>
+         <Summary>Wordpress Desktop a Control Panel for all your Wordpress Sites</Summary>
+         <Description>A desktop app that gives WordPress a permanent home in your dock.You'll need a WordPress.com login.</Description>
+-        <Archive sha1sum="9ea7004441c8a734594dc7b82a38c7494311690c" type="targz">https://github.com/Automattic/wp-desktop/releases/download/v8.0.2/wordpress.com-linux-x64-8.0.2.tar.gz</Archive>
++        <Archive sha1sum="2a3f92bee10f1be1392d61ad4c3f767c076a5f8f" type="targz">https://github.com/Automattic/wp-desktop/releases/download/v8.2.4/wordpress.com-linux-x64-8.2.4.tar.gz</Archive>
+     </Source>
+ 
+     <Package>
+@@ -43,6 +43,13 @@
+     </Package>
+ 
+     <History>
++        <Update release="6">
++            <Date>2026-10-08</Date>
++            <Version>8.2.4</Version>
++            <Comment>Version bump to 8.2.4</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="5">
+             <Date>2023-09-19</Date>
+             <Version>8.0.2</Version>

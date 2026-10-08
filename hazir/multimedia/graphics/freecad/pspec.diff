@@ -1,0 +1,27 @@
+--- a/multimedia/graphics/freecad/pspec.xml
++++ b/multimedia/graphics/freecad/pspec.xml
+@@ -16,8 +16,8 @@
+         
+         <License>LGPL</License>
+         <PartOf>Development</PartOf>
+-        <Archive sha1sum="9ba74237aed8041cf0c731e426f08a66e8d25286" type="binary">
+-            https://github.com/FreeCAD/FreeCAD/releases/download/1.0.1/FreeCAD_1.0.1-conda-Linux-x86_64-py311.AppImage
++        <Archive sha1sum="3a8b2bf4c422fdf4672eeb709a79fc0a4532ea4b" type="binary">
++            https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-Linux-x86_64-py311.AppImage
+         </Archive>        
+     </Source>
+ 
+@@ -49,6 +49,13 @@
+     </Package>
+     
+     <History>
++        <Update release="4">
++            <Date>2026-10-08</Date>
++            <Version>1.1.4</Version>
++            <Comment>Version bump to 1.1.4</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="3">
+             <Date>2025-05-26</Date>
+             <Version>1.0.1</Version>

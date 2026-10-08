@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>FreeCAD</Name>
+        <Homepage>https://freecadweb.org/</Homepage>
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        
+        <Summary xml:lang="en">FreeCAD is an open-source parametric 3D modeler made primarily to design real-life objects of any size.</Summary>
+        <Description xml:lang="en">FreeCAD is an open-source parametric 3D modeler made primarily to design real-life objects of any size. Parametric modeling allows you to easily modify your design by going back into your model history and changing its parameters.</Description>
+        <Summary xml:lang="tr">FreeCAD, öncelikle her boyuttaki gerçek nesneleri tasarlamak için geliştirilmiş, açık kaynaklı, parametrik bir 3B modelleme aracıdır.</Summary>
+        <Description xml:lang="tr">FreeCAD, öncelikle her boyuttaki gerçek nesneleri tasarlamak için geliştirilmiş, açık kaynaklı, parametrik bir 3B modelleme aracıdır. Parametresel modelleme, model geçmişinize geri dönüp parametrelerini değiştirerek tasarımınızı kolayca değiştirmenize olanak tanır.</Description>
+        
+        <License>LGPL</License>
+        <PartOf>Development</PartOf>
+        <Archive sha1sum="3a8b2bf4c422fdf4672eeb709a79fc0a4532ea4b" type="binary">
+            https://github.com/FreeCAD/FreeCAD/releases/download/1.1.4/FreeCAD_1.1.4-Linux-x86_64-py311.AppImage
+        </Archive>        
+    </Source>
+
+    <Package>
+        <Name>FreeCAD</Name>
+        <RuntimeDependencies>
+            <Dependency>boost</Dependency>
+            <Dependency>glew</Dependency> 
+            <Dependency>jsoncpp</Dependency> 
+            <Dependency>netcdf </Dependency>
+            <Dependency>opencascade </Dependency>
+            <Dependency>openmpi</Dependency>
+            <Dependency>qt5-svg </Dependency>
+            <Dependency>qt5-webkit </Dependency>
+            <Dependency>qt5-x11extras</Dependency>
+            <Dependency>qt5-xmlpatterns </Dependency>
+            <Dependency>xerces-c</Dependency> 
+        </RuntimeDependencies>
+        <Files>
+            <Path fileType="data">/opt</Path>
+            <Path fileType="executable">/usr/bin</Path>  
+            <Path fileType="data">/usr/share/applications</Path>
+            <Path fileType="data">/usr/share/icons</Path>         
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile target="/usr/share/applications/FreeCAD.desktop">FreeCAD.desktop</AdditionalFile>
+            <AdditionalFile target="/usr/share/icons/FreeCAD.png">FreeCAD.png</AdditionalFile>
+        </AdditionalFiles>
+    </Package>
+    
+    <History>
+        <Update release="4">
+            <Date>2026-10-08</Date>
+            <Version>1.1.4</Version>
+            <Comment>Version bump to 1.1.4</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+        <Update release="3">
+            <Date>2025-05-26</Date>
+            <Version>1.0.1</Version>
+            <Comment>Version Bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+        <Update release="2">
+            <Date>2022-01-21</Date>
+            <Version>0.19.3</Version>
+            <Comment>Version bump</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>       
+        <Update release="1">
+            <Date>2021-11-18</Date>
+            <Version>0.19.2</Version>
+            <Comment>First Release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

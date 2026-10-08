@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://www.pisilinux.org/projeler/pisi/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>iptvnator</Name>
+        <Homepage>https://obsidian.md</Homepage>    
+        <Packager>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Packager>
+        <Summary >Cross-platform IPTV player application with multiple features, such as support of m3u and m3u8 playlists, favorites, TV guide, TV archive/catchup and more
+</Summary>
+        <Description>Cross-platform IPTV player application with multiple features, such as support of m3u and m3u8 playlists, favorites, TV guide, TV archive/catchup and more
+</Description>
+        <License>MIT</License>
+        <Archive sha1sum="d4bf3f394664869e2079a77c1f7c9dca731372f9" type="binary">https://github.com/4gray/iptvnator/releases/download/v0.24.0/iptvnator-0.24.0-linux-amd64.deb</Archive>
+    </Source>
+
+    <Package>
+        <RuntimeDependencies> 
+            <Dependency>fuse3</Dependency>
+                  
+        </RuntimeDependencies>
+        <Name>iptvnator</Name>
+        <Icon>iptvnator</Icon>
+        <Files>
+            <Path fileType="executable">/usr/bin</Path>
+            <Path fileType="data">/usr/share</Path>
+            <Path fileType="data">/opt</Path>
+        </Files>
+        <AdditionalFiles>
+            <AdditionalFile owner="root" permission="0644" target="/usr/share/applications/iptvnator.desktop">iptvnator.desktop</AdditionalFile>            
+        </AdditionalFiles>
+    </Package>
+
+    <History>
+    	 <Update release="2">
+            <Date>2026-10-08</Date>
+            <Version>0.24.0</Version>
+            <Comment>Version bump to 0.24.0</Comment>
+            <Name>pisi-bump-bot</Name>
+            <Email>pisi-bump-bot@users.noreply.github.com</Email>
+        </Update>
+    	 <Update release="1">
+            <Date>2023-01-15</Date>
+            <Version>0.15.0</Version>
+            <Comment>First release</Comment>
+            <Name>Erkan IŞIK</Name>
+            <Email>erkanisik@pisilinux.org</Email>
+        </Update>
+    </History>
+</PISI>

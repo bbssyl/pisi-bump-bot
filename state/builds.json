@@ -62,43 +62,43 @@
     },
     "multimedia/graphics/freecad": {
       "version": "1.1.4",
-      "status": "hazirlanamadi",
-      "date": "2026-10-07",
-      "reason": "indirme başarısız (HTTP 404)",
-      "run_id": null,
-      "artifact_name": null,
-      "attempts": 0,
-      "logic_version": 1
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37782670830",
+      "artifact_name": "derleme-multimedia-graphics-freecad",
+      "attempts": 1,
+      "logic_version": 2
     },
     "multimedia/graphics/pencil2d": {
       "version": "v0.7.2",
-      "status": "hazirlanamadi",
-      "date": "2026-10-07",
-      "reason": "indirme başarısız (HTTP 404)",
-      "run_id": null,
-      "artifact_name": null,
-      "attempts": 0,
-      "logic_version": 1
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37782670830",
+      "artifact_name": "derleme-multimedia-graphics-pencil2d",
+      "attempts": 1,
+      "logic_version": 2
     },
     "multimedia/graphics/synfig": {
       "version": "v1.5.5",
-      "status": "hazirlanamadi",
-      "date": "2026-10-07",
-      "reason": "indirme başarısız (HTTP 404)",
-      "run_id": null,
-      "artifact_name": null,
-      "attempts": 0,
-      "logic_version": 1
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37782670830",
+      "artifact_name": "derleme-multimedia-graphics-synfig",
+      "attempts": 1,
+      "logic_version": 2
     },
     "multimedia/tv/iptvnator": {
       "version": "v0.24.0",
-      "status": "hazirlanamadi",
-      "date": "2026-10-07",
-      "reason": "indirme başarısız (HTTP 404)",
-      "run_id": null,
-      "artifact_name": null,
-      "attempts": 0,
-      "logic_version": 1
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37782670830",
+      "artifact_name": "derleme-multimedia-tv-iptvnator",
+      "attempts": 1,
+      "logic_version": 2
     },
     "network/browser/brave": {
       "version": "v1.97.56",
@@ -277,6 +277,16 @@
       "reason": null,
       "run_id": "37721855164",
       "artifact_name": "derleme-webcamoid-ffmpeg",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "wordpress-desktop": {
+      "version": "v8.2.4",
+      "status": "basarili",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37782670830",
+      "artifact_name": "derleme-wordpress-desktop",
       "attempts": 1,
       "logic_version": 2
     }
