@@ -1,0 +1,25 @@
+--- a/tesseract/pspec.xml
++++ b/tesseract/pspec.xml
+@@ -12,7 +12,7 @@
+         <IsA>app:console</IsA>
+         <Summary>An OCR program</Summary>
+         <Description>An OCR program</Description>
+-        <Archive sha1sum="243a4919d44bc64d1e7e4cac660c716c845a8d03" type="targz">https://github.com/tesseract-ocr/tesseract/archive/4.0.0.tar.gz</Archive>
++        <Archive sha1sum="330f9d180a5dee36e50cf8bfb909a96eb818943d" type="targz">https://github.com/tesseract-ocr/tesseract/archive/5.5.3.tar.gz</Archive>
+         <BuildDependencies>
+             <Dependency>libgcc</Dependency>
+             <Dependency>libgomp</Dependency>
+@@ -51,6 +51,13 @@
+     </Package>
+     
+     <History>
++        <Update release="2">
++            <Date>2026-10-08</Date>
++            <Version>5.5.3</Version>
++            <Comment>Version bump to 5.5.3</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="1">
+             <Date>2019-01-25</Date>
+             <Version>4.0.0</Version>

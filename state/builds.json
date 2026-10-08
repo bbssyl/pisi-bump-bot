@@ -101,20 +101,20 @@
       "logic_version": 1
     },
     "network/browser/brave": {
-      "version": "v1.96.61",
+      "version": "v1.97.56",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-08",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "37721855164",
       "artifact_name": "derleme-network-browser-brave",
       "attempts": 1,
       "logic_version": 2
     },
     "network/browser/brave-nightly": {
-      "version": "v1.96.61",
+      "version": "v1.97.56",
       "status": "hazirlanamadi",
-      "date": "2026-10-07",
-      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.96.61-1.aarch64.rpm, brave-browser-1.96.61-1.x86_64.rpm, brave-browser-1.96.61-linux-amd64.zip, brave-browser-1.96.61-linux-arm64.zip, Brave-Browser-arm64.dmg)",
+      "date": "2026-10-08",
+      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.97.56-1.aarch64.rpm, brave-browser-1.97.56-1.x86_64.rpm, brave-browser-1.97.56-linux-amd64.zip, brave-browser-1.97.56-linux-arm64.zip, Brave-Browser-arm64.dmg)",
       "run_id": null,
       "artifact_name": null,
       "attempts": 1,
@@ -197,6 +197,86 @@
       "reason": null,
       "run_id": "37630041914",
       "artifact_name": "derleme-pot-desktop",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "science/electronics/fritzing": {
+      "version": "CD-625",
+      "status": "hazirlanamadi",
+      "date": "2026-10-08",
+      "reason": "indirme başarısız (HTTP 404)",
+      "run_id": null,
+      "artifact_name": null,
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "science/electronics/openboardview": {
+      "version": "10.0.0",
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-science-electronics-openboardview",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "tesseract": {
+      "version": "5.5.3",
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-tesseract",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "toggldesktop": {
+      "version": "v7.636",
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-toggldesktop",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "translate-shell": {
+      "version": "v0.9.7.1",
+      "status": "basarili",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-translate-shell",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "util/admin/etcher": {
+      "version": "v2.1.7",
+      "status": "hazirlanamadi",
+      "date": "2026-10-08",
+      "reason": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.7-1.x86_64.rpm, balena-etcher_2.1.7_amd64.deb, balenaEtcher-2.1.7-arm64.dmg, balenaEtcher-2.1.7-x64.dmg, balenaEtcher-2.1.7.Setup.exe)",
+      "run_id": null,
+      "artifact_name": null,
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "util/admin/ventoy": {
+      "version": "v1.1.17",
+      "status": "basarili",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-util-admin-ventoy",
+      "attempts": 1,
+      "logic_version": 2
+    },
+    "webcamoid-ffmpeg": {
+      "version": "9.4.0",
+      "status": "basarisiz",
+      "date": "2026-10-08",
+      "reason": null,
+      "run_id": "37721855164",
+      "artifact_name": "derleme-webcamoid-ffmpeg",
       "attempts": 1,
       "logic_version": 2
     }

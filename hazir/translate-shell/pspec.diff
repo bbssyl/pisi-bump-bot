@@ -1,0 +1,25 @@
+--- a/translate-shell/pspec.xml
++++ b/translate-shell/pspec.xml
+@@ -12,7 +12,7 @@
+         <IsA>app:console</IsA>
+         <Summary>Translate Shell (formerly Google Translate CLI) is a command-line translator powered by Google Translate (default), Bing Translator, Yandex.Translate, and Apertium.</Summary>
+         <Description>Translate Shell (formerly Google Translate CLI) is a command-line translator powered by Google Translate (default), Bing Translator, Yandex.Translate, and Apertium.</Description>
+-        <Archive sha1sum="43fdeda4d285e928fa8b3bff8b91f2e753241a15" type="targz">https://codeload.github.com/soimort/translate-shell/tar.gz/refs/tags/v0.9.6.12</Archive>
++        <Archive sha1sum="feab72979e90a31569e9d8d1aef7db49b9156115" type="targz">https://codeload.github.com/soimort/translate-shell/tar.gz/refs/tags/v0.9.7.1</Archive>
+         <!--
+         <BuildDependencies>
+             <Dependency>Dep1-devel</Dependency>
+@@ -84,6 +84,13 @@
+     </Package>
+     -->
+     <History>
++        <Update release="2">
++            <Date>2026-10-08</Date>
++            <Version>0.9.7.1</Version>
++            <Comment>Version bump to 0.9.7.1</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="1">
+             <Date>2021-05-12</Date>
+             <Version>0.9.6.12</Version>
