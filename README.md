@@ -74,11 +74,31 @@ Workflow, testleri ve derlemeyi `--locked` ile çalıştırır; bu yüzden `Carg
 
 `pisi-bump-tui`, bir Pisi paketçisinin `contrib`'in kendi yerel klonu üzerinde elle çalıştırdığı, etkileşimli bir terminal arayüzüdür. Bot'tan (yukarıdaki bölümler) tamamen ayrıdır: hiçbir GitHub Actions workflow'unda kullanılmaz, hiçbir yere deploy edilmez, `actions.py`'ye dokunmaz ve hiçbir `git` komutu çalıştırmaz.
 
+### Kurulum
+
+Rust/cargo kuruluysa ([rustup.rs](https://rustup.rs)):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/bbssyl/pisi-bump-bot/main/install.sh | sh
+```
+
+(Bir betiği doğrudan `sh`'a yönlendirmeden önce içeriğini okumanız önerilir: betik yalnızca `cargo install --git` çalıştırır, başka bir şey yapmaz.)
+
+Ya da elle, pipe-to-shell istemiyorsanız:
+
+```sh
+cargo install --git https://github.com/bbssyl/pisi-bump-bot pisi-bump-tui
+```
+
+Depoyu zaten klonladıysanız, kurmadan doğrudan çalıştırmak için:
+
 ```sh
 cargo run -p pisi-bump-tui -- --recipes-dir /path/to/contrib
 ```
 
-Akış: tüm `pspec.xml` dosyaları taranır (arka planda, ilerleme çubuğuyla), `eski` paketler tablo halinde listelenir, bir paket seçilip `Enter` ile detayına girilir, `p` ile aday arşiv indirilip sha1 hesaplanarak `pspec.xml` güncellemesi ve diff'i hazırlanır. Diskteki `pspec.xml` yalnızca `w` ile açılan onay ekranında `y` tuşuna basıldığında değişir; başka hiçbir noktada dosya yazılmaz. Kısayollar için uygulama içinde `?`.
+Akış: tüm `pspec.xml` dosyaları taranır (arka planda, ilerleme çubuğuyla), `eski` paketler tablo halinde listelenir, bir paket seçilip `Enter` ile detayına girilir, `p` ile aday arşiv indirilip sha1 hesaplanarak `pspec.xml` güncellemesi ve diff'i hazırlanır. Diskteki `pspec.xml` yalnızca `w` ile açılan onay ekranında `y` tuşuna basıldığında değişir; başka hiçbir noktada dosya yazılmaz. Seçili paketi taramayı beklemeden tek başına kontrol etmek için `v`. Kısayollar için uygulama içinde `?`.
+
+İlk çalıştırmada kimlik doğrulama yöntemi sorulur: `gh` CLI'nin oturumu veya elle girilen bir token. Seçim ve (elle girildiyse) token, `~/.config/pisi-bump-tui/config.json` dosyasında saklanır; bu dosya yalnızca sahibi tarafından okunup yazılabilecek şekilde (`0600`) ayarlanır, ama **token orada düz metin olarak durur** — elle token girmeyi seçerseniz bunu bilerek seçmiş olursunuz. `gh` oturumu seçilirse token hiç diske yazılmaz, her çalıştırmada `gh auth token` ile yeniden alınır. Aynı dosyada son tarama sonuçları da (`packages` alanı) saklanır, böylece bir sonraki açılışta tablo ağ isteği atmadan önceki sonuçlarla hemen gelir; tam yeniden tarama yalnızca `r` ile tetiklenir. Öncelik sırası: `--token` bayrağı > `GITHUB_TOKEN` ortam değişkeni > bu yapılandırma dosyası > ilk çalıştırma ekranı. İlk iki yöntem hiçbir zaman diske yazılmaz.
 
 ## Sınırlamalar
 
