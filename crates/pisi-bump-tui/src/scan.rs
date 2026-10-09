@@ -44,3 +44,21 @@ pub fn spawn_scan(tx: Sender<WorkerMessage>, recipes: Vec<PackageRecipe>, token:
         let _ = tx.send(WorkerMessage::ScanComplete);
     });
 }
+
+pub fn spawn_single_check(
+    tx: Sender<WorkerMessage>,
+    row_index: usize,
+    recipe: PackageRecipe,
+    token: Option<String>,
+) {
+    thread::spawn(move || {
+        let rate_tx = tx.clone();
+        let lookup = GithubLookup::new(Box::new(fetch_observing_rate_limit(rate_tx)), token);
+        let checker = PackageChecker::new(&lookup, None);
+        let report = checker.check(&recipe);
+        let _ = tx.send(WorkerMessage::SingleCheckComplete {
+            row_index,
+            report: Box::new(report),
+        });
+    });
+}

@@ -48,7 +48,7 @@ pub fn count_statuses(rows: &[RowState]) -> StatusCounts {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::app::PrepareState;
+    use crate::app::{BuildState, PrepareState};
     use pisi_bump_bot::report_model::PackageReport;
 
     fn row(name: &str, report: Option<PackageReport>) -> RowState {
@@ -59,6 +59,8 @@ mod tests {
             report,
             prepare: PrepareState::Idle,
             written: false,
+            checking: false,
+            build: BuildState::Idle,
         }
     }
 

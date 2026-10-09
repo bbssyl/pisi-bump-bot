@@ -13,4 +13,7 @@ pub struct Cli {
 
     #[arg(long)]
     pub token: Option<String>,
+
+    #[arg(long)]
+    pub reauth: bool,
 }

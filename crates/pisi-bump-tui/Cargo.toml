@@ -10,6 +10,8 @@ path = "src/main.rs"
 [dependencies]
 pisi-bump-common = { path = "../pisi-bump-common" }
 pisi-bump-bot = { path = "../pisi-bump-bot" }
+serde = { workspace = true }
+serde_json = { workspace = true }
 time = "0.3.55"
 ratatui = "0.30.2"
 crossterm = "0.29.0"
