@@ -60,6 +60,16 @@
       "attempts": 0,
       "logic_version": 1
     },
+    "hardware/disk/ventoy": {
+      "version": "v1.1.18",
+      "status": "basarili",
+      "date": "2026-10-10",
+      "reason": null,
+      "run_id": "38019939979",
+      "artifact_name": "derleme-hardware-disk-ventoy",
+      "attempts": 1,
+      "logic_version": 2
+    },
     "multimedia/graphics/freecad": {
       "version": "1.1.4",
       "status": "basarisiz",
@@ -121,11 +131,11 @@
       "logic_version": 2
     },
     "network/browser/zen-browser": {
-      "version": "1.23.1b",
+      "version": "1.23.2b",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-10",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "38019939979",
       "artifact_name": "derleme-network-browser-zen-browser",
       "attempts": 1,
       "logic_version": 2
@@ -261,11 +271,11 @@
       "logic_version": 2
     },
     "util/admin/ventoy": {
-      "version": "v1.1.17",
+      "version": "v1.1.18",
       "status": "basarili",
-      "date": "2026-10-08",
+      "date": "2026-10-10",
       "reason": null,
-      "run_id": "37721855164",
+      "run_id": "38019939979",
       "artifact_name": "derleme-util-admin-ventoy",
       "attempts": 1,
       "logic_version": 2

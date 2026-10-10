@@ -5,8 +5,8 @@ Kaynak: https://git.pisilinux.org/Pisilinux/contrib (pspec.xml dosyaları, commi
 ## Özet
 
 - Toplam paket: 141
-- Eski: 29
-- Güncel: 8
+- Eski: 30
+- Güncel: 7
 - Desteklenmiyor: 98
 - Karşılaştırılamadı: 0
 - Hata: 6
@@ -41,14 +41,15 @@ Kaynak: https://git.pisilinux.org/Pisilinux/contrib (pspec.xml dosyaları, commi
 | tesseract | `tesseract/pspec.xml` | 4.0.0 | 5.5.3 | [tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract/releases/tag/5.5.3) | `https://github.com/tesseract-ocr/tesseract/archive/5.5.3.tar.gz` | [pspec.diff](hazir/tesseract/pspec.diff) | [❌](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37721855164) |
 | toggldesktop | `toggldesktop/pspec.xml` | 7.4.1023 | v7.636 | [toggl/toggldesktop](https://github.com/toggl/toggldesktop/releases/tag/v7.636) | `https://github.com/toggl/toggldesktop/archive/v7.636.tar.gz` | [pspec.diff](hazir/toggldesktop/pspec.diff) | [❌](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37721855164) |
 | translate-shell | `translate-shell/pspec.xml` | 0.9.6.12 | v0.9.7.1 | [soimort/translate-shell](https://github.com/soimort/translate-shell/releases/tag/v0.9.7.1) | `https://codeload.github.com/soimort/translate-shell/tar.gz/refs/tags/v0.9.7.1` | [pspec.diff](hazir/translate-shell/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37721855164) |
-| ventoy | `util/admin/ventoy/pspec.xml` | 1.1.12 | v1.1.17 | [ventoy/Ventoy](https://github.com/ventoy/Ventoy/releases/tag/v1.1.17) | `https://github.com/ventoy/Ventoy/releases/download/v1.1.17/ventoy-1.1.17-linux.tar.gz` | [pspec.diff](hazir/util/admin/ventoy/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37721855164) |
+| ventoy | `hardware/disk/ventoy/pspec.xml` | 1.1.17 | v1.1.18 | [ventoy/Ventoy](https://github.com/ventoy/Ventoy/releases/tag/v1.1.18) | `https://github.com/ventoy/Ventoy/releases/download/v1.1.18/ventoy-1.1.18-linux.tar.gz` | [pspec.diff](hazir/hardware/disk/ventoy/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/38019939979) |
+| ventoy | `util/admin/ventoy/pspec.xml` | 1.1.12 | v1.1.18 | [ventoy/Ventoy](https://github.com/ventoy/Ventoy/releases/tag/v1.1.18) | `https://github.com/ventoy/Ventoy/releases/download/v1.1.18/ventoy-1.1.18-linux.tar.gz` | [pspec.diff](hazir/util/admin/ventoy/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/38019939979) |
 | VSCodium | `development/VSCodium/pspec.xml` | 1.112.01907 | 1.135.06055 | [VSCodium/vscodium](https://github.com/VSCodium/vscodium/releases/tag/1.135.06055) | `https://github.com/VSCodium/vscodium/releases/download/1.135.06055/VSCodium-linux-x64-1.135.06055.tar.gz` | [pspec.diff](hazir/development/VSCodium/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37625455360) |
 | webcamoid-ffmpeg | `webcamoid-ffmpeg/pspec.xml` | 7.2.1 | 9.4.0 | [webcamoid/webcamoid](https://github.com/webcamoid/webcamoid/releases/tag/9.4.0) | `https://github.com/webcamoid/webcamoid/archive/9.4.0.tar.gz` | [pspec.diff](hazir/webcamoid-ffmpeg/pspec.diff) | [❌](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37721855164) |
 | wordpress-desktop | `wordpress-desktop/pspec.xml` | 8.0.2 | v8.2.4 | [Automattic/wp-desktop](https://github.com/Automattic/wp-desktop/releases/tag/v8.2.4) | `https://github.com/Automattic/wp-desktop/releases/download/v8.2.4/wordpress.com-linux-x64-8.2.4.tar.gz` | [pspec.diff](hazir/wordpress-desktop/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37782670830) |
-| zen-browser | `network/browser/zen-browser/pspec.xml` | 1.21.10b | 1.23.1b | [zen-browser/desktop](https://github.com/zen-browser/desktop/releases/tag/1.23.1b) | `https://github.com/zen-browser/desktop/releases/download/1.23.1b/zen-x86_64.AppImage` | [pspec.diff](hazir/network/browser/zen-browser/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/37630041914) |
+| zen-browser | `network/browser/zen-browser/pspec.xml` | 1.21.10b | 1.23.2b | [zen-browser/desktop](https://github.com/zen-browser/desktop/releases/tag/1.23.2b) | `https://github.com/zen-browser/desktop/releases/download/1.23.2b/zen-x86_64.AppImage` | [pspec.diff](hazir/network/browser/zen-browser/pspec.diff) | [✅](https://github.com/bbssyl/pisi-bump-bot/actions/runs/38019939979) |
 
 <details>
-<summary>Güncel paketler (8)</summary>
+<summary>Güncel paketler (7)</summary>
 
 | Paket | Pspec | Mevcut | Yeni | Kaynak | Ayrıntı |
 | --- | --- | --- | --- | --- | --- |
@@ -59,7 +60,6 @@ Kaynak: https://git.pisilinux.org/Pisilinux/contrib (pspec.xml dosyaları, commi
 | meb-certs | `hangar/meb-certs/pspec.xml` | 1.0 | v1.0 | kurtbahartr/meb-certs-pisi | - |
 | ramme | `ramme/pspec.xml` | 3.2.5 | v3.2.5 | terkelg/ramme | - |
 | scratch-desktop | `programming/language/scratch-desktop/pspec.xml` | 3.3.0 | 3.3.0 | redshaderobotics/scratch3.0-linux | - |
-| ventoy | `hardware/disk/ventoy/pspec.xml` | 1.1.17 | v1.1.17 | ventoy/Ventoy | - |
 
 </details>
 

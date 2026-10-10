@@ -1,0 +1,25 @@
+--- a/hardware/disk/ventoy/pspec.xml
++++ b/hardware/disk/ventoy/pspec.xml
+@@ -12,7 +12,7 @@
+         <IsA>app:gui</IsA>
+         <Summary>A new bootable USB solution</Summary>
+         <Description>A new bootable USB solution</Description>
+-        <Archive sha1sum="dbf3cd738e77e489935fd1bd4cbdae92bdd685cd" type="targz">https://github.com/ventoy/Ventoy/releases/download/v1.1.17/ventoy-1.1.17-linux.tar.gz</Archive>
++        <Archive sha1sum="867998f44397f9860cbb949cf80d205e7f6d212c" type="targz">https://github.com/ventoy/Ventoy/releases/download/v1.1.18/ventoy-1.1.18-linux.tar.gz</Archive>
+     </Source>
+ 
+     <Package>
+@@ -34,6 +34,13 @@
+     </Package>
+ 
+     <History>
++        <Update release="3">
++            <Date>2026-10-10</Date>
++            <Version>1.1.18</Version>
++            <Comment>Version bump to 1.1.18</Comment>
++            <Name>pisi-bump-bot</Name>
++            <Email>pisi-bump-bot@users.noreply.github.com</Email>
++        </Update>
+         <Update release="2">
+             <Date>2026-07-31</Date>
+             <Version>1.1.17</Version>
