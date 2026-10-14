@@ -16,8 +16,8 @@
         <Description xml:lang="en">VSCodium is a community-driven, freely-licensed binary distribution of Microsoft’s editor VS Code.</Description>
         <Description xml:lang="tr">VSCodium, Microsoft'un VS Code düzenleyicisinin topluluk tarafından yönetilen, özgür lisanslı bir ikili dağıtımıdır.</Description>
         <Icon>vscodium</Icon>
-        <Archive sha1sum="7926b597cec82e0632d236a79d739f0a0bd64a06" type="targz">
-           https://github.com/VSCodium/vscodium/releases/download/1.135.06055/VSCodium-linux-x64-1.135.06055.tar.gz            
+        <Archive sha1sum="ac8d87b711a93ef730ebe4768a3485909db3637f" type="targz">
+           https://github.com/VSCodium/vscodium/releases/download/1.140.06880/VSCodium-linux-x64-1.140.06880.tar.gz            
         </Archive>
         <!-- https://github.com/VSCodium/vscodium/releases/ -->
     </Source>
@@ -39,9 +39,9 @@
     <History>  
     
         <Update release="4">
-            <Date>2026-10-07</Date>
-            <Version>1.135.06055</Version>
-            <Comment>Version bump to 1.135.06055</Comment>
+            <Date>2026-10-14</Date>
+            <Version>1.140.06880</Version>
+            <Comment>Version bump to 1.140.06880</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>

@@ -6,8 +6,8 @@
          <PartOf>Office</PartOf>
 -        <Archive sha1sum="9de81ac6772d1fdf6ece9207c1541ef39bf1da53" type="tarxz">
 -            https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v9.3.1/onlyoffice-desktopeditors-x64.tar.xz
-+        <Archive sha1sum="ac239aa3a4ce0147d1886d4747e20d003cf00077" type="tarxz">
-+            https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v9.4.0/onlyoffice-desktopeditors-x64.tar.xz
++        <Archive sha1sum="69ac766a54999eeadc3f849e8d53ce8af00a462f" type="tarxz">
++            https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v10.0.0/onlyoffice-desktopeditors-x64.tar.xz
          </Archive> 
          <!-- https://github.com/ONLYOFFICE/DesktopEditors/ -->
      </Source>
@@ -16,9 +16,9 @@
      
      <History>    
 +        <Update release="4">
-+            <Date>2026-10-07</Date>
-+            <Version>9.4.0</Version>
-+            <Comment>Version bump to 9.4.0</Comment>
++            <Date>2026-10-14</Date>
++            <Version>10.0.0</Version>
++            <Comment>Version bump to 10.0.0</Comment>
 +            <Name>pisi-bump-bot</Name>
 +            <Email>pisi-bump-bot@users.noreply.github.com</Email>
 +        </Update>

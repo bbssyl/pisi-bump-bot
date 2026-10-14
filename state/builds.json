@@ -1,14 +1,14 @@
 {
   "packages": {
     "development/VSCodium": {
-      "version": "1.135.06055",
+      "version": "1.140.06880",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-14",
       "reason": null,
-      "run_id": "37625455360",
+      "run_id": "38505011813",
       "artifact_name": "derleme-development-VSCodium",
-      "attempts": 0,
-      "logic_version": 1
+      "attempts": 1,
+      "logic_version": 2
     },
     "editor/obsidian": {
       "version": "v1.14.4",
@@ -191,11 +191,11 @@
       "logic_version": 2
     },
     "office/onlyoffice": {
-      "version": "v9.4.0",
+      "version": "v10.0.0",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-14",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "38505011813",
       "artifact_name": "derleme-office-onlyoffice",
       "attempts": 1,
       "logic_version": 2
