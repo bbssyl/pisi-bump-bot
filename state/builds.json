@@ -151,11 +151,11 @@
       "logic_version": 2
     },
     "network/chat/mattermost": {
-      "version": "v6.3.0",
+      "version": "v6.3.1",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-16",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "38844308867",
       "artifact_name": "derleme-network-chat-mattermost",
       "attempts": 1,
       "logic_version": 2

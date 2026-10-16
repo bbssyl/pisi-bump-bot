@@ -12,8 +12,8 @@
         <Description>Open source Slack-alternative in Golang and React</Description>
         <License>AGPL, Apache</License>
         <PartOf>Network</PartOf>
-        <Archive sha1sum="1ed6d20de7ae9e299cbe1250d89845d423f89468" type="targz">
-            https://github.com/mattermost/desktop/releases/download/v6.3.0/mattermost-desktop-6.3.0-linux-x64.tar.gz
+        <Archive sha1sum="097acda5f3fea829bba703ce8b8b20fe972901d9" type="targz">
+            https://github.com/mattermost/desktop/releases/download/v6.3.1/mattermost-desktop-6.3.1-linux-x64.tar.gz
         </Archive>        
     </Source>
     <!-- https://github.com/mattermost/desktop/releases -->
@@ -36,9 +36,9 @@
     
     <History> 
         <Update release="7">
-            <Date>2026-10-07</Date>
-            <Version>6.3.0</Version>
-            <Comment>Version bump to 6.3.0</Comment>
+            <Date>2026-10-16</Date>
+            <Version>6.3.1</Version>
+            <Comment>Version bump to 6.3.1</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>

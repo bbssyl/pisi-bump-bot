@@ -1155,10 +1155,10 @@
       "name": "Mattermost",
       "status": "eski",
       "current_version": "6.1.0",
-      "latest_version": "v6.3.0",
+      "latest_version": "v6.3.1",
       "upstream": "mattermost/desktop",
-      "release_url": "https://github.com/mattermost/desktop/releases/tag/v6.3.0",
-      "candidate_url": "https://github.com/mattermost/desktop/releases/download/v6.3.0/mattermost-desktop-6.3.0-linux-x64.tar.gz",
+      "release_url": "https://github.com/mattermost/desktop/releases/tag/v6.3.1",
+      "candidate_url": "https://github.com/mattermost/desktop/releases/download/v6.3.1/mattermost-desktop-6.3.1-linux-x64.tar.gz",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "network/chat/mattermost/pspec.xml"
