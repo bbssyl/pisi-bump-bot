@@ -111,31 +111,31 @@
       "logic_version": 2
     },
     "network/browser/brave": {
-      "version": "v1.97.57",
+      "version": "v1.97.59",
       "status": "basarili",
-      "date": "2026-10-15",
+      "date": "2026-10-17",
       "reason": null,
-      "run_id": "38674983673",
+      "run_id": "38997791740",
       "artifact_name": "derleme-network-browser-brave",
       "attempts": 1,
       "logic_version": 2
     },
     "network/browser/brave-nightly": {
-      "version": "v1.97.57",
+      "version": "v1.97.59",
       "status": "hazirlanamadi",
-      "date": "2026-10-15",
-      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.97.57-1.aarch64.rpm, brave-browser-1.97.57-1.x86_64.rpm, brave-browser-1.97.57-linux-amd64.zip, brave-browser-1.97.57-linux-arm64.zip, Brave-Browser-arm64.dmg)",
+      "date": "2026-10-17",
+      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.97.59-1.aarch64.rpm, brave-browser-1.97.59-1.x86_64.rpm, brave-browser-1.97.59-linux-amd64.zip, brave-browser-1.97.59-linux-arm64.zip, Brave-Browser-arm64.dmg)",
       "run_id": null,
       "artifact_name": null,
       "attempts": 1,
       "logic_version": 2
     },
     "network/browser/zen-browser": {
-      "version": "1.23.2b",
+      "version": "1.23.3b",
       "status": "basarili",
-      "date": "2026-10-10",
+      "date": "2026-10-17",
       "reason": null,
-      "run_id": "38019939979",
+      "run_id": "38997791740",
       "artifact_name": "derleme-network-browser-zen-browser",
       "attempts": 1,
       "logic_version": 2
