@@ -161,11 +161,11 @@
       "logic_version": 2
     },
     "network/mail/mailspring": {
-      "version": "1.26.0",
+      "version": "1.26.1",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-21",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "39537275811",
       "artifact_name": "derleme-network-mail-mailspring",
       "attempts": 1,
       "logic_version": 2

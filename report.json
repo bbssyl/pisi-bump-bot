@@ -1119,10 +1119,10 @@
       "name": "mailspring",
       "status": "eski",
       "current_version": "1.19.0",
-      "latest_version": "1.26.0",
+      "latest_version": "1.26.1",
       "upstream": "Foundry376/Mailspring",
-      "release_url": "https://github.com/Foundry376/Mailspring/releases/tag/1.26.0",
-      "candidate_url": "https://github.com/Foundry376/Mailspring/releases/download/1.26.0/mailspring-1.26.0-amd64.deb",
+      "release_url": "https://github.com/Foundry376/Mailspring/releases/tag/1.26.1",
+      "candidate_url": "https://github.com/Foundry376/Mailspring/releases/download/1.26.1/mailspring-1.26.1-amd64.deb",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "network/mail/mailspring/pspec.xml"
