@@ -131,11 +131,11 @@
       "logic_version": 2
     },
     "network/browser/zen-browser": {
-      "version": "1.23.3b",
+      "version": "1.23.4b",
       "status": "basarili",
-      "date": "2026-10-17",
+      "date": "2026-10-22",
       "reason": null,
-      "run_id": "38997791740",
+      "run_id": "39715496820",
       "artifact_name": "derleme-network-browser-zen-browser",
       "attempts": 1,
       "logic_version": 2
@@ -261,10 +261,10 @@
       "logic_version": 2
     },
     "util/admin/etcher": {
-      "version": "v2.1.7",
+      "version": "v2.1.8",
       "status": "hazirlanamadi",
-      "date": "2026-10-08",
-      "reason": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.7-1.x86_64.rpm, balena-etcher_2.1.7_amd64.deb, balenaEtcher-2.1.7-arm64.dmg, balenaEtcher-2.1.7-x64.dmg, balenaEtcher-2.1.7.Setup.exe)",
+      "date": "2026-10-22",
+      "reason": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.8-1.x86_64.rpm, balena-etcher_2.1.8_amd64.deb, balenaEtcher-2.1.8-arm64.dmg, balenaEtcher-2.1.8-x64.dmg, balenaEtcher-2.1.8.Setup.exe)",
       "run_id": null,
       "artifact_name": null,
       "attempts": 1,
