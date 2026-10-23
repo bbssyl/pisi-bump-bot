@@ -13,7 +13,7 @@
         <Description>A powerful knowledge base that works on top of a local folder of plain text Markdown files
 </Description>
         <License>custom</License>
-        <Archive sha1sum="6c0419d7a87090d7713a85940238a208c4d3d2c7" type="binary">https://github.com/obsidianmd/obsidian-releases/releases/download/v1.14.4/obsidian_1.14.4_amd64.deb</Archive>
+        <Archive sha1sum="919f433c87441678dcbb53cac7f7bba405b267ff" type="binary">https://github.com/obsidianmd/obsidian-releases/releases/download/v1.14.5/obsidian_1.14.5_amd64.deb</Archive>
     </Source>
 
     <Package>
@@ -38,9 +38,9 @@
 
     <History>
     	 <Update release="2">
-            <Date>2026-10-07</Date>
-            <Version>1.14.4</Version>
-            <Comment>Version bump to 1.14.4</Comment>
+            <Date>2026-10-23</Date>
+            <Version>1.14.5</Version>
+            <Comment>Version bump to 1.14.5</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>

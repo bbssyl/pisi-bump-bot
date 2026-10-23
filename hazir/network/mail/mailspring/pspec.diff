@@ -6,8 +6,8 @@
          <Description>A beautiful, fast and maintained fork of Nylas Mail by one of the original authors..</Description>
 -        <Archive sha1sum="251e33fdcbab7ae7e5117fd6e9b783be0f899059" type="binary">
 -            https://github.com/Foundry376/Mailspring/releases/download/1.19.0/mailspring-1.19.0-amd64.deb
-+        <Archive sha1sum="18e3289ec5d2d76e7fda9f44ab2c6ec848e7374a" type="binary">
-+            https://github.com/Foundry376/Mailspring/releases/download/1.26.1/mailspring-1.26.1-amd64.deb
++        <Archive sha1sum="1707804972d1d1880fc9d74f09ad51b83d72ae40" type="binary">
++            https://github.com/Foundry376/Mailspring/releases/download/1.26.2/mailspring-1.26.2-amd64.deb
          </Archive>
      </Source>
      <!-- https://github.com/Foundry376/Mailspring/releases -->
@@ -16,9 +16,9 @@
      <History>
      
 +        <Update release="10">
-+            <Date>2026-10-21</Date>
-+            <Version>1.26.1</Version>
-+            <Comment>Version bump to 1.26.1</Comment>
++            <Date>2026-10-23</Date>
++            <Version>1.26.2</Version>
++            <Comment>Version bump to 1.26.2</Comment>
 +            <Name>pisi-bump-bot</Name>
 +            <Email>pisi-bump-bot@users.noreply.github.com</Email>
 +        </Update>

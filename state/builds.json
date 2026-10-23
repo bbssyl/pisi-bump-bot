@@ -11,14 +11,14 @@
       "logic_version": 2
     },
     "editor/obsidian": {
-      "version": "v1.14.4",
+      "version": "v1.14.5",
       "status": "basarili",
-      "date": "2026-10-07",
+      "date": "2026-10-23",
       "reason": null,
-      "run_id": "37625455360",
+      "run_id": "39893683403",
       "artifact_name": "derleme-editor-obsidian",
-      "attempts": 0,
-      "logic_version": 1
+      "attempts": 1,
+      "logic_version": 2
     },
     "game/emulator/atari800": {
       "version": "ATARI800_7_2_1",
@@ -111,20 +111,20 @@
       "logic_version": 2
     },
     "network/browser/brave": {
-      "version": "v1.97.59",
+      "version": "v1.98.60",
       "status": "basarili",
-      "date": "2026-10-17",
+      "date": "2026-10-23",
       "reason": null,
-      "run_id": "38997791740",
+      "run_id": "39893683403",
       "artifact_name": "derleme-network-browser-brave",
       "attempts": 1,
       "logic_version": 2
     },
     "network/browser/brave-nightly": {
-      "version": "v1.97.59",
+      "version": "v1.98.60",
       "status": "hazirlanamadi",
-      "date": "2026-10-17",
-      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.97.59-1.aarch64.rpm, brave-browser-1.97.59-1.x86_64.rpm, brave-browser-1.97.59-linux-amd64.zip, brave-browser-1.97.59-linux-arm64.zip, Brave-Browser-arm64.dmg)",
+      "date": "2026-10-23",
+      "reason": "uygun dosya bulunamadı (adaylar: brave-browser-1.98.60-1.aarch64.rpm, brave-browser-1.98.60-1.x86_64.rpm, brave-browser-1.98.60-linux-amd64.zip, brave-browser-1.98.60-linux-arm64.zip, Brave-Browser-arm64.dmg)",
       "run_id": null,
       "artifact_name": null,
       "attempts": 1,
@@ -161,11 +161,11 @@
       "logic_version": 2
     },
     "network/mail/mailspring": {
-      "version": "1.26.1",
+      "version": "1.26.2",
       "status": "basarili",
-      "date": "2026-10-21",
+      "date": "2026-10-23",
       "reason": null,
-      "run_id": "39537275811",
+      "run_id": "39893683403",
       "artifact_name": "derleme-network-mail-mailspring",
       "attempts": 1,
       "logic_version": 2
@@ -261,10 +261,10 @@
       "logic_version": 2
     },
     "util/admin/etcher": {
-      "version": "v2.1.8",
+      "version": "v2.1.9",
       "status": "hazirlanamadi",
-      "date": "2026-10-22",
-      "reason": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.8-1.x86_64.rpm, balena-etcher_2.1.8_amd64.deb, balenaEtcher-2.1.8-arm64.dmg, balenaEtcher-2.1.8-x64.dmg, balenaEtcher-2.1.8.Setup.exe)",
+      "date": "2026-10-23",
+      "reason": "uygun dosya bulunamadı (adaylar: balena-etcher-2.1.9-1.x86_64.rpm, balena-etcher_2.1.9_amd64.deb, balenaEtcher-2.1.9-arm64.dmg, balenaEtcher-2.1.9-x64.dmg, balenaEtcher-2.1.9.Setup.exe)",
       "run_id": null,
       "artifact_name": null,
       "attempts": 1,
