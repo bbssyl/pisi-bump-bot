@@ -1851,10 +1851,10 @@
       "name": "VSCodium",
       "status": "eski",
       "current_version": "1.112.01907",
-      "latest_version": "1.140.06880",
+      "latest_version": "1.143.17183",
       "upstream": "VSCodium/vscodium",
-      "release_url": "https://github.com/VSCodium/vscodium/releases/tag/1.140.06880",
-      "candidate_url": "https://github.com/VSCodium/vscodium/releases/download/1.140.06880/VSCodium-linux-x64-1.140.06880.tar.gz",
+      "release_url": "https://github.com/VSCodium/vscodium/releases/tag/1.143.17183",
+      "candidate_url": "https://github.com/VSCodium/vscodium/releases/download/1.143.17183/VSCodium-linux-x64-1.143.17183.tar.gz",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "development/VSCodium/pspec.xml"
