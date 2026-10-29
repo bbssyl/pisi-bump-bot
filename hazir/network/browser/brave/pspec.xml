@@ -16,8 +16,8 @@
         <Summary xml:lang="tr">Varsayılan olarak reklamları ve takip kodlarını engelleyen bir web tarayıcısı</Summary>
         <Description xml:lang="en">A web browser that stops ads and trackers by default</Description>
         <Description xml:lang="tr">Varsayılan olarak reklamları ve takip kodlarını engelleyen bir web tarayıcısı</Description>
-        <Archive sha1sum="5d7fa37fbc3078b080848f312fe666f9715ca117" type="binary">
-           https://github.com/brave/brave-browser/releases/download/v1.98.60/brave-browser-1.98.60-linux-amd64.zip
+        <Archive sha1sum="70408c8c65494b720f027935ca6a101eacf5041a" type="binary">
+           https://github.com/brave/brave-browser/releases/download/v1.98.62/brave-browser-1.98.62-linux-amd64.zip
         </Archive>
         <!-- https://github.com/brave/brave-browser/ -->
     </Source>
@@ -47,9 +47,9 @@
     </Package>
     <History>
         <Update release="4">
-            <Date>2026-10-23</Date>
-            <Version>1.98.60</Version>
-            <Comment>Version bump to 1.98.60</Comment>
+            <Date>2026-10-29</Date>
+            <Version>1.98.62</Version>
+            <Comment>Version bump to 1.98.62</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>
