@@ -11,11 +11,11 @@
       "logic_version": 2
     },
     "editor/obsidian": {
-      "version": "v1.14.5",
+      "version": "v1.15.0",
       "status": "basarili",
-      "date": "2026-10-23",
+      "date": "2026-11-03",
       "reason": null,
-      "run_id": "39893683403",
+      "run_id": "41570322630",
       "artifact_name": "derleme-editor-obsidian",
       "attempts": 1,
       "logic_version": 2
@@ -151,11 +151,11 @@
       "logic_version": 2
     },
     "network/chat/mattermost": {
-      "version": "v6.3.1",
+      "version": "v6.3.2",
       "status": "basarili",
-      "date": "2026-10-16",
+      "date": "2026-11-03",
       "reason": null,
-      "run_id": "38844308867",
+      "run_id": "41570322630",
       "artifact_name": "derleme-network-chat-mattermost",
       "attempts": 1,
       "logic_version": 2
