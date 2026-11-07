@@ -6,8 +6,8 @@
         
 -        <Archive sha1sum="74d34bf5752185ed6cc5dbd374ae69ad8598eacf" type="binary">
 -           https://github.com/zen-browser/desktop/releases/download/1.21.10b/zen-x86_64.AppImage
-+        <Archive sha1sum="52e615267525da11fc946b3ab85453caf5874bf3" type="binary">
-+           https://github.com/zen-browser/desktop/releases/download/1.24b/zen-x86_64.AppImage
++        <Archive sha1sum="36aa2acb9f6a1d459d2f3a353a9a9861e32da523" type="binary">
++           https://github.com/zen-browser/desktop/releases/download/1.24.1b/zen-x86_64.AppImage
          </Archive>
      </Source>
      <!-- https://github.com/zen-browser/desktop/releases -->
@@ -16,9 +16,9 @@
  
      <History>
 +        <Update release="12">
-+            <Date>2026-10-30</Date>
-+            <Version>1.24</Version>
-+            <Comment>Version bump to 1.24</Comment>
++            <Date>2026-11-07</Date>
++            <Version>1.24.1</Version>
++            <Comment>Version bump to 1.24.1</Comment>
 +            <Name>pisi-bump-bot</Name>
 +            <Email>pisi-bump-bot@users.noreply.github.com</Email>
 +        </Update>

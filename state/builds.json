@@ -131,11 +131,11 @@
       "logic_version": 2
     },
     "network/browser/zen-browser": {
-      "version": "1.24b",
+      "version": "1.24.1b",
       "status": "basarili",
-      "date": "2026-10-30",
+      "date": "2026-11-07",
       "reason": null,
-      "run_id": "40995755441",
+      "run_id": "42332515265",
       "artifact_name": "derleme-network-browser-zen-browser",
       "attempts": 1,
       "logic_version": 2
