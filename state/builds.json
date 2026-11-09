@@ -101,11 +101,11 @@
       "logic_version": 2
     },
     "multimedia/tv/iptvnator": {
-      "version": "v0.24.0",
+      "version": "v0.25.0",
       "status": "basarisiz",
-      "date": "2026-10-08",
+      "date": "2026-11-09",
       "reason": null,
-      "run_id": "37782670830",
+      "run_id": "42554729817",
       "artifact_name": "derleme-multimedia-tv-iptvnator",
       "attempts": 1,
       "logic_version": 2
@@ -181,11 +181,11 @@
       "logic_version": 2
     },
     "office/koodo-reader": {
-      "version": "v2.4.6",
+      "version": "v2.4.7",
       "status": "basarisiz",
-      "date": "2026-10-07",
+      "date": "2026-11-09",
       "reason": null,
-      "run_id": "37630041914",
+      "run_id": "42554729817",
       "artifact_name": "derleme-office-koodo-reader",
       "attempts": 1,
       "logic_version": 2
