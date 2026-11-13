@@ -5,7 +5,7 @@
  </Description>
          <License>custom</License>
 -        <Archive sha1sum="645acf9f9cba333ed89e72653ea930c4ae5b6c7f" type="binary">https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/obsidian_1.5.3_amd64.deb</Archive>
-+        <Archive sha1sum="ea0b512c2046598ac28e760b47e6daa68fd1410f" type="binary">https://github.com/obsidianmd/obsidian-releases/releases/download/v1.15.0/obsidian_1.15.0_amd64.deb</Archive>
++        <Archive sha1sum="0515a0e5d18fa16c78c880b877cf7347796b757f" type="binary">https://github.com/obsidianmd/obsidian-releases/releases/download/v1.15.1/obsidian_1.15.1_amd64.deb</Archive>
      </Source>
  
      <Package>
@@ -14,9 +14,9 @@
  
      <History>
 +    	 <Update release="2">
-+            <Date>2026-11-03</Date>
-+            <Version>1.15.0</Version>
-+            <Comment>Version bump to 1.15.0</Comment>
++            <Date>2026-11-13</Date>
++            <Version>1.15.1</Version>
++            <Comment>Version bump to 1.15.1</Comment>
 +            <Name>pisi-bump-bot</Name>
 +            <Email>pisi-bump-bot@users.noreply.github.com</Email>
 +        </Update>
