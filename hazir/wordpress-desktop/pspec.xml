@@ -13,7 +13,7 @@
         <IsA>app:gui</IsA>
         <Summary>Wordpress Desktop a Control Panel for all your Wordpress Sites</Summary>
         <Description>A desktop app that gives WordPress a permanent home in your dock.You'll need a WordPress.com login.</Description>
-        <Archive sha1sum="2a3f92bee10f1be1392d61ad4c3f767c076a5f8f" type="targz">https://github.com/Automattic/wp-desktop/releases/download/v8.2.4/wordpress.com-linux-x64-8.2.4.tar.gz</Archive>
+        <Archive sha1sum="ba6362858fb072f3dcc742c695387a5780c960ac" type="targz">https://github.com/Automattic/wp-desktop/releases/download/v8.2.5/wordpress.com-linux-x64-8.2.5.tar.gz</Archive>
     </Source>
 
     <Package>
@@ -44,9 +44,9 @@
 
     <History>
         <Update release="6">
-            <Date>2026-10-08</Date>
-            <Version>8.2.4</Version>
-            <Comment>Version bump to 8.2.4</Comment>
+            <Date>2026-11-14</Date>
+            <Version>8.2.5</Version>
+            <Comment>Version bump to 8.2.5</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>

@@ -1899,10 +1899,10 @@
       "name": "wordpress-desktop",
       "status": "eski",
       "current_version": "8.0.2",
-      "latest_version": "v8.2.4",
+      "latest_version": "v8.2.5",
       "upstream": "Automattic/wp-desktop",
-      "release_url": "https://github.com/Automattic/wp-desktop/releases/tag/v8.2.4",
-      "candidate_url": "https://github.com/Automattic/wp-desktop/releases/download/v8.2.4/wordpress.com-linux-x64-8.2.4.tar.gz",
+      "release_url": "https://github.com/Automattic/wp-desktop/releases/tag/v8.2.5",
+      "candidate_url": "https://github.com/Automattic/wp-desktop/releases/download/v8.2.5/wordpress.com-linux-x64-8.2.5.tar.gz",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "wordpress-desktop/pspec.xml"
