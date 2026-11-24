@@ -291,11 +291,11 @@
       "logic_version": 2
     },
     "wordpress-desktop": {
-      "version": "v8.2.5",
+      "version": "v8.2.6",
       "status": "basarili",
-      "date": "2026-11-14",
+      "date": "2026-11-24",
       "reason": null,
-      "run_id": "43549948627",
+      "run_id": "45317332160",
       "artifact_name": "derleme-wordpress-desktop",
       "attempts": 1,
       "logic_version": 2
