@@ -231,11 +231,11 @@
       "logic_version": 2
     },
     "tesseract": {
-      "version": "5.5.4",
+      "version": "5.5.5",
       "status": "basarisiz",
-      "date": "2026-10-29",
+      "date": "2026-11-27",
       "reason": null,
-      "run_id": "40810506707",
+      "run_id": "45932379251",
       "artifact_name": "derleme-tesseract",
       "attempts": 1,
       "logic_version": 2

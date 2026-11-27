@@ -1683,10 +1683,10 @@
       "name": "tesseract",
       "status": "eski",
       "current_version": "4.0.0",
-      "latest_version": "5.5.4",
+      "latest_version": "5.5.5",
       "upstream": "tesseract-ocr/tesseract",
-      "release_url": "https://github.com/tesseract-ocr/tesseract/releases/tag/5.5.4",
-      "candidate_url": "https://github.com/tesseract-ocr/tesseract/archive/5.5.4.tar.gz",
+      "release_url": "https://github.com/tesseract-ocr/tesseract/releases/tag/5.5.5",
+      "candidate_url": "https://github.com/tesseract-ocr/tesseract/archive/5.5.5.tar.gz",
       "candidate_sha1": null,
       "detail": null,
       "recipe_path": "tesseract/pspec.xml"

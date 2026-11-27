@@ -12,7 +12,7 @@
         <IsA>app:console</IsA>
         <Summary>An OCR program</Summary>
         <Description>An OCR program</Description>
-        <Archive sha1sum="3cfbef045309adbbf6e4475224d8cbf164f4952b" type="targz">https://github.com/tesseract-ocr/tesseract/archive/5.5.4.tar.gz</Archive>
+        <Archive sha1sum="478a8d3ef3ee70cd40f45ee3ca4a9df5b5b4f088" type="targz">https://github.com/tesseract-ocr/tesseract/archive/5.5.5.tar.gz</Archive>
         <BuildDependencies>
             <Dependency>libgcc</Dependency>
             <Dependency>libgomp</Dependency>
@@ -52,9 +52,9 @@
     
     <History>
         <Update release="2">
-            <Date>2026-10-29</Date>
-            <Version>5.5.4</Version>
-            <Comment>Version bump to 5.5.4</Comment>
+            <Date>2026-11-27</Date>
+            <Version>5.5.5</Version>
+            <Comment>Version bump to 5.5.5</Comment>
             <Name>pisi-bump-bot</Name>
             <Email>pisi-bump-bot@users.noreply.github.com</Email>
         </Update>
